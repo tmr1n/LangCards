@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_test_answers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_test_result_id')->references('id')->on('user_test_results')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('question_id')->references('id')->on('questions')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('answer_id')->references('id')->on('question_answers')
