@@ -18,7 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('type_user', ['admin', 'user'])->default('user');
-            $table->foreignId('currency_id')->nullable()->references('id')->on('currencies')
+            $table->foreignId('currency_id')->nullable()->default(null)->references('id')->on('currencies')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('timezone_id')->nullable()->default(null)->references('id')->on('timezones')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('vip_status_time_end')->nullable()->default(null);
             $table->rememberToken();

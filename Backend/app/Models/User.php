@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'type_user',
         'currency_id',
+        'timezone_id',
         'vip_status_time_end'
     ];
 
@@ -63,6 +64,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserTestResult::class, 'user_id');
     }
+
+    public function timezone(): BelongsTo
+    {
+        return $this->belongsTo(Timezone::class, 'timezone_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
