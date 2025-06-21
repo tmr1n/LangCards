@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'ipgeolocation' => [
+        'key' => env('IPGEOLOCATION_KEY'),
+    ],
+
 ];
