@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Api\V1\AuthControllers\AuthController;
 use App\Http\Controllers\Api\V1\AuthControllers\RegistrationController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(callback: function () {

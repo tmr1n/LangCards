@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\AuthRequests\AuthRequest;
 use App\Http\Resources\v1\AuthResources\AuthUserResource;
 use App\Http\Responses\ApiResponse;
+use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
+use App\Services\CurrencyService;
 use App\Services\TimezoneService;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,14 +22,17 @@ class AuthController extends Controller
     protected LoginRepositoryInterface $loginRepository;
     protected TimezoneRepositoryInterface $timezoneRepository;
     protected RegistrationRepositoryInterface $registrationRepository;
+    protected CurrencyRepositoryInterface $currencyRepository;
     private array $acceptedProviders = ['google'];
     public function __construct(LoginRepositoryInterface $loginRepository,
                                 TimezoneRepositoryInterface $timezoneRepository,
-                                RegistrationRepositoryInterface $registrationRepository,)
+                                RegistrationRepositoryInterface $registrationRepository,
+                                 CurrencyRepositoryInterface $currencyRepository)
     {
         $this->loginRepository = $loginRepository;
         $this->timezoneRepository  = $timezoneRepository;
         $this->registrationRepository = $registrationRepository;
+        $this->currencyRepository = $currencyRepository;
     }
 
     public function login(AuthRequest $request)
@@ -64,15 +69,16 @@ class AuthController extends Controller
                 if($userDB === null) // аккаунта пользователя по gmail - почте нет
                 {
                     $timezoneService = new TimezoneService($this->timezoneRepository);
-                    logger("IP = $request->ip()");
                     $timezoneId = $timezoneService->getTimezoneByIpUser($request->ip());
+                    $currencyService = new CurrencyService($this->currencyRepository);
+                    $currencyIdFromDatabase = $currencyService->getCurrencyByIp($request->ip());
                     $email = $googleUser->getEmail();
                     $nickname = $googleUser->getNickname();
                     if($nickname === null)
                     {
                         $nickname = explode('@', $googleUser->getEmail())[0];
                     }
-                    $this->registrationRepository->registerUser($nickname, $email, null, $timezoneId);
+                    $this->registrationRepository->registerUser($nickname, $email, null, $timezoneId, $currencyIdFromDatabase);
                     $user = $this->loginRepository->getUserByEmail($email);
                     return ApiResponse::success('Пользователь успешно авторизован',(object)[
                         'user' => new AuthUserResource($user),

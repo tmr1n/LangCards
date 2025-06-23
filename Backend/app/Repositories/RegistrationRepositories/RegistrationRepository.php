@@ -13,13 +13,14 @@ class RegistrationRepository implements RegistrationRepositoryInterface
         $this->model = $model;
     }
 
-    public function registerUser(string $name, string $email, ?string $password, ?int $timezone_id)
+    public function registerUser(string $name, string $email, ?string $password, ?int $timezone_id, ?int $currency_id): void
     {
         $user = new User();
         $user->name = $name;
         $user->email = $email;
         $user->password = bcrypt($password);
         $user->timezone_id = $timezone_id;
+        $user->currency_id = $currency_id;
         $user->save();
     }
 }
