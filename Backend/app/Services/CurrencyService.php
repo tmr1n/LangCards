@@ -14,11 +14,11 @@ class CurrencyService
     }
     public function getCurrencyByIp(string $ip)
     {
-        //$ip= "193.238.153.17";
+        $ipAddressService = new IpAddressService();
         $apiKey = config('services.ipgeolocation.key');
         $response = Http::get("https://api.ipgeolocation.io/v2/ipgeo", [
             'apiKey' => $apiKey,
-            'ip' => $ip,
+            'ip' => $ipAddressService->getIpAddress($ip),
             'fields'=>'currency'
         ]);
         $data = $response->json();

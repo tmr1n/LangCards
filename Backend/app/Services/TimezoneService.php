@@ -15,10 +15,11 @@ class TimezoneService
 
     public function getTimezoneByIpUser(string $ip)
     {
+        $ipAddressService = new IpAddressService();
         $apiKey = config('services.ipgeolocation.key');
         $response = Http::get("https://api.ipgeolocation.io/v2/timezone", [
             'apiKey' => $apiKey,
-            'ip' => $ip,
+            'ip' => $ipAddressService->getIpAddress($ip),
         ]);
         $data = $response->json();
         $timezoneId = null;
