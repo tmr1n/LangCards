@@ -1,0 +1,31 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    type: string
+    maxLength: 255
+    description: Full name of the user
+    example: "John Doe"
+  email:
+    type: string
+    format: email
+    maxLength: 255
+    description: Email address of the user
+    example: "john.doe@example.com"
+  password:
+    type: string
+    minLength: 8
+    description: |
+      Password must contain:
+      - At least 1 uppercase letter
+      - At least 1 lowercase letter
+      - At least 1 number
+      - At least 1 special character
+    example: "Password123!"
+  password_confirmation:
+    type: string
+    description: Password confirmation (must match password)
+    example: "Password123!"

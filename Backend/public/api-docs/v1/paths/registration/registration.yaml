@@ -1,0 +1,24 @@
+post:
+  tags:
+    - Auth
+  summary: Регистрация пользователя
+  description: Регистрация пользователя в системе
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../schemas/registration/registrationRequest.yaml
+  responses:
+    201:
+      description: Успешная регистрация
+      content:
+        application/json:
+          schema:
+            $ref: ../../schemas/registration/registrationSuccessResponse.yaml
+    422:
+      description: Ошибка валидации входных данных
+      content:
+        application/json:
+          schema:
+            $ref: ../../schemas/registration/validationErrorResponse.yaml
