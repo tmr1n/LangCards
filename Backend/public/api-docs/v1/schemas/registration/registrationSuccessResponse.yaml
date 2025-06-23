@@ -1,0 +1,10 @@
+type: object
+properties:
+  message:
+    type: string
+    example: "Новый пользователь успешно зарегистрирован"
+  data:
+    type: array
+  code:
+    type: integer
+    example: 201

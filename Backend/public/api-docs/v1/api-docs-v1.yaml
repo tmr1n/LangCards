@@ -1,0 +1,19 @@
+openapi: 3.0.0
+info:
+  title: LangCards API V1 Documentation
+  version: 1.0.0
+  description: API V1 Documentation
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Version 1.0
+paths:
+  /registration:
+    $ref: "../../api-docs/v1/paths/registration/registration.yaml"
+components:
+  schemas:
+    registrationRequest:
+      $ref: "../../api-docs/v1/schemas/registration/registrationRequest.yaml"
+    registrationSuccessResponse:
+      $ref: "../../api-docs/v1/schemas/registration/registrationSuccessResponse.yaml"
+    validationErrorResponse:
+      $ref: "../../api-docs/v1/schemas/registration/validationErrorResponse.yaml"

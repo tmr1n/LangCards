@@ -25,14 +25,13 @@ class RegistrationController extends Controller
 
     public function registration(RegistrationRequest $request): JsonResponse
     {
-        $ip = '151.0.18.5'; // или $request->ip() для IP клиента
+        //$ip = '151.0.18.5'; // или $request->ip() для IP клиента
+        $ip = $request->ip();
         $apiKey = config('services.ipgeolocation.key');
-
         $response = Http::get("https://api.ipgeolocation.io/v2/timezone", [
             'apiKey' => $apiKey,
             'ip' => $ip,
         ]);
-
         $data = $response->json();
         logger($data);
         $timezoneId = null;
@@ -45,6 +44,6 @@ class RegistrationController extends Controller
             }
         }
         $this->registrationRepository->registerUser($request->name, $request->email, $request->password, $timezoneId);
-        return ApiResponse::success('Новый пользователь успешно зарегистрирован');
+        return ApiResponse::success('Новый пользователь успешно зарегистрирован', [], 201);
     }
 }
