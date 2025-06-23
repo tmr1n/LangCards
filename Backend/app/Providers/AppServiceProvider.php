@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\CurrencyRepositories\CurrencyRepository;
+use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
             RegistrationRepositoryInterface::class => RegistrationRepository::class,
             TimezoneRepositoryInterface::class => TimezoneRepository::class,
             LoginRepositoryInterface::class => LoginRepository::class,
+            CurrencyRepositoryInterface::class => CurrencyRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);

@@ -21,11 +21,9 @@ class TimezoneService
             'ip' => $ip,
         ]);
         $data = $response->json();
-        logger($data);
         $timezoneId = null;
         $nameRegion = data_get($data, 'time_zone.name');
         if (isset($nameRegion)) {
-            logger($nameRegion);
             if ($this->timezoneRepository->isExistRepositoryByNameRegion($nameRegion)) {
                 $timezoneDB = $this->timezoneRepository->getRepositoryByNameRegion($nameRegion);
                 $timezoneId = $timezoneDB->id;
