@@ -2,7 +2,7 @@ type: object
 properties:
   message:
     type: string
-    example: "The given data was invalid."
+    example: "Предоставленные данные не валидны"
   errors:
     type: object
     properties:
