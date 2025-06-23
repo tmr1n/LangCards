@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: exampleUser
+    description: "Никнейм пользователя"
+  email:
+    type: string
+    format: email
+    example: user@example.com
+    description: "Email - адрес аккаунта пользователя"
+  created_at:
+    type: string
+    format: date-time
+    example: "23-10-2023 14:30:45"
+    description: "Дата создания пользователя в формате дд-мм-ГГГГ ЧЧ:мм:сс"

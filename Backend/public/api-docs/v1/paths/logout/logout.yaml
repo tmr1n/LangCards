@@ -1,0 +1,20 @@
+post:
+  tags:
+    - Auth
+  summary: Выход пользователя из аккаунта
+  description: Осуществляет удаление токена доступа на сервере и выход из аккаунта
+  security:
+    - bearerAuth: [ ]  # Можно указать только для отдельных методов
+  responses:
+    '200':
+      description: "Успешный выход"
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/logout/successLogout.yaml"
+    '401':
+      description: "Неавторизованный доступ к выходу из аккаунта"
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/logout/accessError.yaml"

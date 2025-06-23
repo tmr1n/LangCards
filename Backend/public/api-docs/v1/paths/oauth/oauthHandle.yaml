@@ -1,0 +1,48 @@
+get:
+  tags:
+    - OAuth
+  summary: Обработка OAuth callback
+  description: |
+    Обрабатывает возврат пользователя после авторизации у внешнего провайдера.
+    Выполняет авторизацию существующего пользователя или автоматическую
+    регистрацию нового пользователя на основе данных от провайдера.
+    **Логика работы:**
+    - Если пользователь с таким email не найден - создается новый аккаунт и выполняется авторизация
+    - Если пользователь найден и у него нет пароля - выполняется авторизация
+    - Если пользователь найден и у него есть пароль - возвращается ошибка конфликта
+  operationId: handleOAuthCallback
+  parameters:
+    - name: provider
+      in: path
+      required: true
+      description: Название OAuth провайдера
+      schema:
+        type: string
+        enum:
+          - google
+        example: google
+  responses:
+    '200':
+      description: Успешная авторизация пользователя
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/oauth/handle/successAuthorizationOAuth.yaml"
+    '401':
+      description: Провайдер не поддерживается
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/oauth/handle/notSupportedProviderOAuth.yaml"
+    '409':
+      description: Конфликт - email уже используется с паролем
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/oauth/handle/existUserWithEmailAndPassword.yaml"
+    '500':
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/oauth/handle/serverError.yaml"

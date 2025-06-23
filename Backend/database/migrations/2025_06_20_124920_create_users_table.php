@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('avatar_url')->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->enum('type_user', ['admin', 'user'])->default('user');
             $table->foreignId('currency_id')->nullable()->default(null)->references('id')->on('currencies')
                 ->onUpdate('cascade')->onDelete('cascade');
