@@ -1,0 +1,16 @@
+type: object
+properties:
+  status:
+    type: string
+    example: "success"
+  message:
+    type: string
+    example: "Получена ссылка для OAuth - авторизации через провайдера google"
+  data:
+    type: object
+    properties:
+      url:
+        type: string
+        format: uri
+        description: URL для перенаправления на страницу авторизации провайдера
+        example: "https://accounts.google.com/oauth/authorize?client_id=123&redirect_uri=https://example.com/auth/google/callback&scope=email+profile&response_type=code&state=randomstate"

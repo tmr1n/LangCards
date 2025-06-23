@@ -1,0 +1,12 @@
+type: object
+properties:
+  success:
+    type: string
+    example: "error"
+  message:
+    type: string
+    example: "Отсутствует поддержка провайдера: invalid_provider"
+  data:
+    type: object
+    nullable: true
+    example: null

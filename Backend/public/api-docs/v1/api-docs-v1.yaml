@@ -11,6 +11,13 @@ paths:
     $ref: "../../api-docs/v1/paths/registration/registration.yaml"
   /login:
     $ref: "../../api-docs/v1/paths/login/login.yaml"
+  /auth/{provider}/redirect:
+    $ref: "../../api-docs/v1/paths/oauth/oauthRedirect.yaml"
+  /auth/{provider}/callback:
+    $ref: "../../api-docs/v1/paths/oauth/oauthHandle.yaml"
+  /logout:
+    $ref: "../../api-docs/v1/paths/logout/logout.yaml"
+
 components:
   schemas:
     registrationRequest:
@@ -29,4 +36,28 @@ components:
       $ref: "../../api-docs/v1/schemas/login/loginValidationErrorResponse.yaml"
     userNotFoundResponse:
       $ref: "../../api-docs/v1/schemas/login/userNotFoundResponse.yaml"
+    notSupportedProviderOAuth:
+      $ref: "../../api-docs/v1/schemas/oauth/redirect/notSupportedProviderOAuth.yaml"
+    successGetLinkForOAuth:
+      $ref: "../../api-docs/v1/schemas/oauth/redirect/successGetLinkForOAuth.yaml"
+    authUserResourceOAuthHandle:
+      $ref: "../../api-docs/v1/schemas/oauth/handle/authUserResource.yaml"
+    existUserWithEmailAndPassword:
+      $ref: "../../api-docs/v1/schemas/oauth/handle/existUserWithEmailAndPassword.yaml"
+    notSupportedProviderOAuthHandle:
+      $ref: "../../api-docs/v1/schemas/oauth/handle/notSupportedProviderOAuth.yaml"
+    serverError:
+      $ref: "../../api-docs/v1/schemas/oauth/handle/serverError.yaml"
+    successAuthorizationOAuth:
+      $ref: "../../api-docs/v1/schemas/oauth/handle/successAuthorizationOAuth.yaml"
+    accessError:
+      $ref: "../../api-docs/v1/schemas/logout/accessError.yaml"
+    successLogout:
+      $ref: "../../api-docs/v1/schemas/logout/successLogout.yaml"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # Необязательно, чисто информационное поле
 
