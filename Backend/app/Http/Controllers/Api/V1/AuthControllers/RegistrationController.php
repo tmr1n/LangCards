@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\AuthControllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\RegistrationRequest;
+use App\Http\Requests\Api\V1\AuthRequests\RegistrationRequest;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
@@ -44,6 +44,6 @@ class RegistrationController extends Controller
             }
         }
         $this->registrationRepository->registerUser($request->name, $request->email, $request->password, $timezoneId);
-        return ApiResponse::success('Новый пользователь успешно зарегистрирован', [], 201);
+        return ApiResponse::success('Новый пользователь успешно зарегистрирован', null, 201);
     }
 }

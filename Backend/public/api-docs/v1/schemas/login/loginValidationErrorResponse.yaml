@@ -1,0 +1,25 @@
+type: object
+properties:
+  message:
+    type: string
+    example: "Предоставленные данные не валидны"
+  errors:
+    type: object
+    properties:
+      email:
+        type: array
+        items:
+          type: string
+        example:
+          ["Поле Email обязательно для заполнения.",
+           "Email должен быть строкой.",
+           "Введите корректный Email.",
+           "Email не должен превышать 255 символов.",
+           "Пользователь с таким Email не найден."]
+      password:
+        type: array
+        items:
+          type: string
+        example:
+          ["Поле Пароль обязательно для заполнения.",
+          "Пароль должен быть строкой."]

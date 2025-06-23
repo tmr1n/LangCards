@@ -1,0 +1,30 @@
+post:
+  tags:
+    - Auth
+  summary: Авторизация пользователя
+  description: Авторизация пользователя в системе
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../schemas/login/loginRequest.yaml
+  responses:
+    200:
+      description: Успешная авторизация
+      content:
+        application/json:
+          schema:
+            $ref: ../../schemas/login/authSuccessResponse.yaml
+    201:
+      description: Не обнаружен пользователь с предоставленными email - адресом и паролем
+      content:
+        application/json:
+          schema:
+            $ref: ../../schemas/login/userNotFoundResponse.yaml
+    422:
+      description: Ошибка валидации входных данных
+      content:
+        application/json:
+          schema:
+            $ref: ../../schemas/login/loginValidationErrorResponse.yaml

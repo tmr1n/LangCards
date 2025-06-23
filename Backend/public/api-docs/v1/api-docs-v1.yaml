@@ -9,6 +9,8 @@ servers:
 paths:
   /registration:
     $ref: "../../api-docs/v1/paths/registration/registration.yaml"
+  /login:
+    $ref: "../../api-docs/v1/paths/login/login.yaml"
 components:
   schemas:
     registrationRequest:
@@ -17,3 +19,14 @@ components:
       $ref: "../../api-docs/v1/schemas/registration/registrationSuccessResponse.yaml"
     validationErrorResponse:
       $ref: "../../api-docs/v1/schemas/registration/validationErrorResponse.yaml"
+    authSuccessResponse:
+      $ref: "../../api-docs/v1/schemas/login/authSuccessResponse.yaml"
+    authUserResource:
+      $ref: "../../api-docs/v1/schemas/login/authUserResource.yaml"
+    loginRequest:
+      $ref: "../../api-docs/v1/schemas/login/loginRequest.yaml"
+    loginValidationErrorResponse:
+      $ref: "../../api-docs/v1/schemas/login/loginValidationErrorResponse.yaml"
+    userNotFoundResponse:
+      $ref: "../../api-docs/v1/schemas/login/userNotFoundResponse.yaml"
+
