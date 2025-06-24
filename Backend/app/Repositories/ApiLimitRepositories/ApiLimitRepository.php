@@ -7,14 +7,14 @@ use Carbon\Carbon;
 
 class ApiLimitRepository implements ApiLimitRepositoryInterface
 {
-    protected ApiLimit $apiLimit;
+    protected ApiLimit $model;
     public function __construct(ApiLimit $apiLimit)
     {
-        $this->apiLimit = $apiLimit;
+        $this->model = $apiLimit;
     }
     public function findOrCreateByDate(string $date)
     {
-        return $this->apiLimit->firstOrCreate(['day' => $date]);
+        return $this->model->firstOrCreate(['day' => $date]);
     }
 
     public function incrementRequestCount(ApiLimit $apiLimit)
@@ -24,6 +24,6 @@ class ApiLimitRepository implements ApiLimitRepositoryInterface
 
     public function deleteInfoBeforeCurrentDay()
     {
-        $this->where('day', '<', Carbon::today())->delete();
+        $this->model->where('day', '<', Carbon::today())->delete();
     }
 }
