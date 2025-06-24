@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\AuthControllers;
 
+use App\Enums\TypeRequestApi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\AuthRequests\AuthRequest;
 use App\Http\Resources\v1\AuthResources\AuthUserResource;
 use App\Http\Responses\ApiResponse;
-use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
-use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
-use App\Services\CurrencyService;
-use App\Services\TimezoneService;
+use App\Repositories\UserRepositories\UserRepositoryInterface;
+use App\Services\ApiServices\ApiService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,19 +19,18 @@ use Laravel\Socialite\Facades\Socialite;
 class AuthController extends Controller
 {
     protected LoginRepositoryInterface $loginRepository;
-    protected TimezoneRepositoryInterface $timezoneRepository;
     protected RegistrationRepositoryInterface $registrationRepository;
-    protected CurrencyRepositoryInterface $currencyRepository;
+    protected UserRepositoryInterface $userRepository;
+    protected ApiService $apiService;
     private array $acceptedProviders = ['google'];
     public function __construct(LoginRepositoryInterface $loginRepository,
-                                TimezoneRepositoryInterface $timezoneRepository,
                                 RegistrationRepositoryInterface $registrationRepository,
-                                 CurrencyRepositoryInterface $currencyRepository)
+                                UserRepositoryInterface $userRepository)
     {
         $this->loginRepository = $loginRepository;
-        $this->timezoneRepository  = $timezoneRepository;
         $this->registrationRepository = $registrationRepository;
-        $this->currencyRepository = $currencyRepository;
+        $this->userRepository = $userRepository;
+        $this->apiService = app(ApiService::class);
     }
 
     public function login(AuthRequest $request)
@@ -65,21 +63,25 @@ class AuthController extends Controller
             if($provider == 'google') {
                 $googleUser = Socialite::driver($provider)->stateless()->user();
                 $userDB = $this->loginRepository->getUserByEmail($googleUser->email);
-                //-------------- вроде дописал, протестить
+                //-------------- TODO: вроде дописал, протестить
                 if($userDB === null) // аккаунта пользователя по gmail - почте нет
                 {
-                    $timezoneService = new TimezoneService($this->timezoneRepository);
-                    $timezoneId = $timezoneService->getTimezoneByIpUser($request->ip());
-                    $currencyService = new CurrencyService($this->currencyRepository);
-                    $currencyIdFromDatabase = $currencyService->getCurrencyByIp($request->ip());
                     $email = $googleUser->getEmail();
                     $nickname = $googleUser->getNickname();
                     if($nickname === null)
                     {
                         $nickname = explode('@', $googleUser->getEmail())[0];
                     }
-                    $this->registrationRepository->registerUser($nickname, $email, null, $timezoneId, $currencyIdFromDatabase);
-                    $user = $this->loginRepository->getUserByEmail($email);
+                    $this->registrationRepository->registerUser($nickname, $email, null, null, null);
+                    $user = $this->userRepository->getInfoUserAccountByEmail($email);
+                    if($user === null)
+                    {
+                        return ApiResponse::error("Произошла ошибка при регистрации пользователя через провайдера $provider", null, 500);
+                    }
+                    $timezoneId = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::timezoneRequest);
+                    $currencyIdFromDatabase = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::currencyRequest);
+                    $this->userRepository->updateTimezoneId($user, $timezoneId);
+                    $this->userRepository->updateCurrencyId($user, $currencyIdFromDatabase);
                     return ApiResponse::success('Пользователь успешно авторизован',(object)[
                         'user' => new AuthUserResource($user),
                         'token' => $user->createToken('auth-token')->plainTextToken
