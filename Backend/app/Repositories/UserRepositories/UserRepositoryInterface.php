@@ -6,6 +6,8 @@ use App\Models\User;
 
 interface UserRepositoryInterface
 {
+    public function isExistPasswordAccount(string $email): bool;
+
     public function getInfoUserAccountByEmail($email);
 
     public function updateCurrencyId(User $user, ?int $currencyId);

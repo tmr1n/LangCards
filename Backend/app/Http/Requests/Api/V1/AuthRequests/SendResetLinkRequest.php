@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\V1\AuthRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthRequest extends FormRequest
+class SendResetLinkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:255', 'exists:users,email']
         ];
     }
     public function messages(): array
@@ -33,9 +32,8 @@ class AuthRequest extends FormRequest
             'email.string' => 'Email должен быть строкой.',
             'email.email' => 'Введите корректный Email.',
             'email.max' => 'Email не должен превышать 255 символов.',
-            'email.exists' => 'Пользователь с заданным Email - адресом не найден.',
-            'password.required' => 'Поле Пароль обязательно для заполнения.',
-            'password.string' => 'Пароль должен быть строкой.'
+            'email.exists' => 'Пользователь с заданным Email - адресом не найден.'
         ];
     }
+
 }

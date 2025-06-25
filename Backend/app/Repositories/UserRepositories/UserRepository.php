@@ -41,4 +41,10 @@ class UserRepository implements UserRepositoryInterface
             'timezone_id' => $timezoneId
         ]);
     }
+
+    public function isExistPasswordAccount(string $email): bool
+    {
+        $user = $this->model->where('email', $email)->select(['password'])->first();
+        return $user->password !== null;
+    }
 }

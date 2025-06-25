@@ -8,6 +8,8 @@ use App\Repositories\CurrencyRepositories\CurrencyRepository;
 use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
+use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
+use App\Repositories\ForgotPasswordRepositories\ForgotPasswordRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepository;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
             CurrencyRepositoryInterface::class => CurrencyRepository::class,
             ApiLimitRepositoryInterface::class => ApiLimitRepository::class,
             UserRepositoryInterface::class => UserRepository::class,
+            ForgotPasswordRepositoryInterface::class => ForgotForgotPasswordRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
