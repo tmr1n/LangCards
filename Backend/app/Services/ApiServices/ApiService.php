@@ -28,7 +28,7 @@ class ApiService
         $this->ipAddressService = new IpAddressService();
     }
 
-    public function makeRequest(string $ipAddress,int $userId, TypeRequestApi $type)
+    public function makeRequest(string $ipAddress,int $userId, TypeRequestApi $type): ?int
     {
         $today = Carbon::today()->toDateString();
         $limit = $this->apiLimitRepository->findOrCreateByDate($today);

@@ -27,4 +27,18 @@ class UserRepository implements UserRepositoryInterface
         $user->timezone_id = $timezoneId;
         $user->save();
     }
+
+    public function updateCurrencyIdByIdUser(int $userId, ?int $currencyId)
+    {
+        $this->model->where('id', $userId)->update([
+            'currency_id' => $currencyId
+        ]);
+    }
+
+    public function updateTimezoneIdByIdUser(int $userId, ?int $timezoneId)
+    {
+        $this->model->where('id', $userId)->update([
+            'timezone_id' => $timezoneId
+        ]);
+    }
 }
