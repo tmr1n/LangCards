@@ -6,16 +6,17 @@ use App\Helpers\ColumnLabel;
 use App\Models\Interfaces\ColumnLabelsableInterface;
 use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Topic extends Model implements ColumnLabelsableInterface
+class Example extends Model implements  ColumnLabelsableInterface
 {
     use HasTableColumns;
-    protected $table = 'topics';
+    protected $table = 'examples';
     protected $guarded = [];
-    public function decks(): BelongsToMany
+
+    public function card(): BelongsTo
     {
-        return $this->belongsToMany(Deck::class, 'deck_topics', 'topic_id', 'deck_id');
+        return $this->belongsTo(Card::class, 'card_id');
     }
     protected function casts(): array
     {
@@ -28,7 +29,8 @@ class Topic extends Model implements ColumnLabelsableInterface
     {
         return [
             new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('name', 'Название темы'),
+            new ColumnLabel('name', 'Пример'),
+            new ColumnLabel('card_id', 'Карточка'),
             new ColumnLabel('created_at', 'Дата создания'),
             new ColumnLabel('updated_at', 'Дата обновления'),
         ];

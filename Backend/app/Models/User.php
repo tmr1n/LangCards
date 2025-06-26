@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Helpers\ColumnLabel;
+use App\Models\Interfaces\ColumnLabelsableInterface;
 use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ColumnLabelsableInterface
 {
     protected $table = 'users';
 
@@ -82,6 +84,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'vip_status_time_end' => 'datetime'
+        ];
+    }
+
+    public static function columnLabels(): array
+    {
+        return [
+            new ColumnLabel('id', 'Идентификатор'),
+            new ColumnLabel('name', 'Имя'),
+            new ColumnLabel('email', 'Электронная почта'),
+            new ColumnLabel('avatar_url', 'Аватар'),
+            new ColumnLabel('email_verified_at', 'Дата подтверждения почты'),
+            new ColumnLabel('password', 'Пароль'),
+            new ColumnLabel('type_user', 'Тип пользователя'),
+            new ColumnLabel('currency_id', 'Валюта'),
+            new ColumnLabel('timezone_id', 'Часовой пояс'),
+            new ColumnLabel('vip_status_time_end', 'Окончание VIP-статуса'),
+            new ColumnLabel('remember_token', 'Токен запоминания'),
+            new ColumnLabel('created_at', 'Дата создания'),
+            new ColumnLabel('updated_at', 'Дата обновления'),
         ];
     }
 }
