@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Helpers\ColumnLabel;
+use App\Models\Interfaces\ColumnLabelsableInterface;
 use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Deck extends Model
+class Deck extends Model implements  ColumnLabelsableInterface
 {
     use HasTableColumns;
     protected $table = 'decks';
@@ -50,6 +52,20 @@ class Deck extends Model
     {
         return [
 
+        ];
+    }
+
+    public static function columnLabels(): array
+    {
+        return [
+            new ColumnLabel('id', 'Идентификатор'),
+            new ColumnLabel('name', 'Название колоды'),
+            new ColumnLabel('original_language_id', 'Исходный язык'),
+            new ColumnLabel('target_language_id', 'Целевой язык'),
+            new ColumnLabel('user_id', 'Пользователь'),
+            new ColumnLabel('is_premium', 'Премиум доступ'),
+            new ColumnLabel('created_at', 'Дата создания'),
+            new ColumnLabel('updated_at', 'Дата обновления'),
         ];
     }
 }
