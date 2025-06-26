@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tariff extends Model
 {
+    use HasTableColumns;
     protected $table = 'tariffs';
     protected $guarded = [];
 

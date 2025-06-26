@@ -3,6 +3,7 @@
 namespace App\Repositories\TimezoneRepositories;
 
 use App\Models\Timezone;
+use Illuminate\Support\Facades\Schema;
 
 class TimezoneRepository implements TimezoneRepositoryInterface
 {
@@ -34,5 +35,17 @@ class TimezoneRepository implements TimezoneRepositoryInterface
         $newTimezone->name = $nameRegion;
         $newTimezone->offset_utc = $offset_UTC;
         $newTimezone->save();
+    }
+
+    public function getAllTimezones($namesAttributes)
+    {
+        $allowedColumns = $this->model->getTableColumns();
+        $fields = array_intersect($namesAttributes, $allowedColumns);
+        if (empty($fields)) {
+            $fields = ['*'];
+        }
+        logger("Итоговые колонки");
+        logger($fields);
+        return $this->model->select($fields)->get();
     }
 }

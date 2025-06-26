@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
+    use HasTableColumns;
     protected $table = 'languages';
     protected $guarded = [];
 

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Topic extends Model
 {
+    use HasTableColumns;
     protected $table = 'topics';
     protected $guarded = [];
     public function decks(): BelongsToMany

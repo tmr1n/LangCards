@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserTestAnswer extends Model
 {
+    use HasTableColumns;
     protected $table = 'user_test_answers';
     protected $guarded = [];
 
