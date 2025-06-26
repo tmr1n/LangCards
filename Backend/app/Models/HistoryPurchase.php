@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HistoryPurchase extends Model
 {
+    use HasTableColumns;
     protected $table = 'history_purchases';
     protected $guarded = [];
     public function cost(): BelongsTo

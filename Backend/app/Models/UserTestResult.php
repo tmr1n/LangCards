@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserTestResult extends Model
 {
+    use HasTableColumns;
     protected $table = 'user_test_results';
     protected $guarded = [];
     public function user(): BelongsTo

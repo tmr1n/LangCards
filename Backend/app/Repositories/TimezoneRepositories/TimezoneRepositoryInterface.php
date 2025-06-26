@@ -11,4 +11,6 @@ interface TimezoneRepositoryInterface
     public function getRepositoryById(int $id): ?Timezone;
 
     public function saveNewTimezone(string $nameRegion, string $offset_UTC);
+
+    public function getAllTimezones($namesAttributes);
 }
