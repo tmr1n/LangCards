@@ -21,6 +21,7 @@ class QueryFilter
     /**
      * @param Request $request
      */
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -31,8 +32,19 @@ class QueryFilter
      */
     public function apply(Builder $builder): void
     {
+        //для модели apiLimit
+        $hasDay = isset($filters['day']);
+        $hasRequestCount = isset($filters['requestCount']);
+        //
         $this->builder = $builder;
         foreach ($this->fields() as $field => $value) {
+            if ($hasDay && in_array($field, ['fromDay', 'toDay'])) {
+                continue; // пропустить fromDay и toDay, если есть day
+            }
+            if($hasRequestCount && in_array($field, ['minRequestCount', 'maxRequestCount' ])) {
+                continue;
+            }
+
             $method = Str::camel($field);
             if (method_exists($this, $method)) {
                 call_user_func_array([$this, $method], (array)$value);
