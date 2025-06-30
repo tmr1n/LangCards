@@ -6,6 +6,10 @@ use App\Repositories\ApiLimitRepositories\ApiLimitRepository;
 use App\Repositories\ApiLimitRepositories\ApiLimitRepositoryInterface;
 use App\Repositories\CurrencyRepositories\CurrencyRepository;
 use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
+use App\Repositories\DeckRepositories\DeckRepository;
+use App\Repositories\DeckRepositories\DeckRepositoryInterface;
+use App\Repositories\LanguageRepositories\LanguageRepository;
+use App\Repositories\LanguageRepositories\LanguageRepositoryInterface;
 use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
@@ -33,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
             ApiLimitRepositoryInterface::class => ApiLimitRepository::class,
             UserRepositoryInterface::class => UserRepository::class,
             ForgotPasswordRepositoryInterface::class => ForgotForgotPasswordRepository::class,
+            LanguageRepositoryInterface::class => LanguageRepository::class,
+            DeckRepositoryInterface::class => DeckRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
