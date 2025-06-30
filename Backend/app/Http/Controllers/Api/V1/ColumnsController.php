@@ -70,8 +70,6 @@ class ColumnsController extends Controller
                 return ApiResponse::success("Данные о столбцах в таблице $nameTable", (object)['columns' => VisitedDeck::columnLabels()]);
             default:
                 return ApiResponse::error("Таблицы с наименованием $nameTable не существует");
-
-
         }
     }
 }

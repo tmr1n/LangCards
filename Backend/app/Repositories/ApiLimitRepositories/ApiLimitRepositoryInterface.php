@@ -11,4 +11,10 @@ interface ApiLimitRepositoryInterface
     public function incrementRequestCount(ApiLimit $apiLimit);
 
     public function deleteInfoBeforeCurrentDay();
+
+    public function getMinDay();
+    public function getMaxDay();
+    public function getMinRequestCount();
+
+    public function getMaxRequestCount();
 }
