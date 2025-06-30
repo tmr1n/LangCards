@@ -3,6 +3,7 @@
 namespace App\Repositories\CostRepositories;
 
 use App\Models\Cost;
+use Illuminate\Database\Eloquent\Collection;
 
 class CostRepository implements CostRepositoryInterface
 {
@@ -25,5 +26,12 @@ class CostRepository implements CostRepositoryInterface
         $newCost->currency_id = $currencyId;
         $newCost->tariff_id = $tariffId;
         $newCost->save();
+    }
+
+    public function getAllCostsWithActiveTariffByCurrencyId(int $currencyId): Collection
+    {
+        return $this->model->with(['tariff'=>function ($query) {
+            $query->where('is_active','=',true);
+        }])->where('currency_id','=',$currencyId)->get();
     }
 }

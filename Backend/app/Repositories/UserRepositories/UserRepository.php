@@ -47,4 +47,21 @@ class UserRepository implements UserRepositoryInterface
         $user = $this->model->where('email', $email)->select(['password'])->first();
         return $user->password !== null;
     }
+
+    public function getDateOfEndVipStatusByIdUser(int $idUser)
+    {
+        return $this->model->where('id', '=', $idUser)->first()->vip_status_time_end;
+    }
+
+    public function getInfoAboutUsersForHistoryPurchaseSeeder()
+    {
+        return $this->model->select(['id', 'currency_id', 'vip_status_time_end'])->get();
+    }
+
+    public function updateEndDateOfVipStatusByIdUser(int $idUser, string $endDate): bool
+    {
+        return $this->model
+                ->where('id', '=', $idUser)
+                ->update(['vip_status_time_end' => $endDate]) > 0;
+    }
 }
