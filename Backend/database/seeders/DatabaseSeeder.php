@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $seeders = [TimezonesSeeder::class];
+        $seeders = [TimezonesSeeder::class, LanguagesSeeder::class];
         foreach ($seeders as $seeder) {
             $this->call($seeder);
         }

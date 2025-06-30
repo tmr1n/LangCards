@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
@@ -22,21 +21,19 @@ class TimezonesSeeder extends Seeder
      */
     public function run(): void
     {
-
         $path = resource_path('json/timezones_with_utc.json');
         if(File::exists($path)) {
-            logger('СУКА');
             // Получаем содержимое файла
             try {
                 $json = File::get($path);
                 // Преобразуем JSON в массив объектов
                 $data = json_decode($json); // вернёт массив stdClass объектов
                 foreach ($data as $timezone_json) {
-                    if (!$this->timezoneRepository->isExistRepositoryByNameRegion($timezone_json->zone)) {
+                    if (!$this->timezoneRepository->isExistTimezoneByNameRegion($timezone_json->zone)) {
                         $this->timezoneRepository->saveNewTimezone($timezone_json->zone, $timezone_json->utc_offset);
                     }
                 }
-            } catch (FileNotFoundException $e) {
+            } catch (FileNotFoundException) {
                 logger("Файл по пути $path отсутствует");
             }
         }

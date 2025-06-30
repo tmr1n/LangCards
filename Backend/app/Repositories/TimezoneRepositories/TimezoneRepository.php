@@ -3,7 +3,6 @@
 namespace App\Repositories\TimezoneRepositories;
 
 use App\Models\Timezone;
-use Illuminate\Support\Facades\Schema;
 
 class TimezoneRepository implements TimezoneRepositoryInterface
 {
@@ -14,17 +13,17 @@ class TimezoneRepository implements TimezoneRepositoryInterface
         $this->model = $model;
     }
 
-    public function isExistRepositoryByNameRegion(string $nameRegion): bool
+    public function isExistTimezoneByNameRegion(string $nameRegion): bool
     {
         return $this->model->where('name', '=', $nameRegion)->exists();
     }
 
-    public function getRepositoryByNameRegion(string $nameRegion): ?Timezone
+    public function getTimezoneByNameRegion(string $nameRegion): ?Timezone
     {
         return $this->model->where('name', '=', $nameRegion)->first();
     }
 
-    public function getRepositoryById(int $id): ?Timezone
+    public function getTimezoneById(int $id): ?Timezone
     {
         return $this->model->where('id', '=', $id)->first();
     }

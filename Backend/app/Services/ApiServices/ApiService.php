@@ -84,8 +84,8 @@ class ApiService
         $timezoneId = null;
         $nameRegion = data_get($data, 'time_zone.name');
         if (isset($nameRegion)) {
-            if ($this->timezoneRepository->isExistRepositoryByNameRegion($nameRegion)) {
-                $timezoneDB = $this->timezoneRepository->getRepositoryByNameRegion($nameRegion);
+            if ($this->timezoneRepository->isExistTimezoneByNameRegion($nameRegion)) {
+                $timezoneDB = $this->timezoneRepository->getTimezoneByNameRegion($nameRegion);
                 $timezoneId = $timezoneDB->id;
             }
         }

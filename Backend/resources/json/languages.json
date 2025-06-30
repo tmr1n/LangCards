@@ -1,0 +1,52 @@
+[
+    {
+        "name": "English",
+        "code": "en",
+        "flag_url": "https://flagcdn.com/w320/gb.png"
+    },
+    {
+        "name": "Spanish",
+        "code": "es",
+        "flag_url": "https://flagcdn.com/w320/es.png"
+    },
+    {
+        "name": "French",
+        "code": "fr",
+        "flag_url": "https://flagcdn.com/w320/fr.png"
+    },
+    {
+        "name": "German",
+        "code": "de",
+        "flag_url": "https://flagcdn.com/w320/de.png"
+    },
+    {
+        "name": "Russian",
+        "code": "ru",
+        "flag_url": "https://flagcdn.com/w320/ru.png"
+    },
+    {
+        "name": "Chinese",
+        "code": "zh",
+        "flag_url": "https://flagcdn.com/w320/cn.png"
+    },
+    {
+        "name": "Arabic",
+        "code": "ar",
+        "flag_url": "https://flagcdn.com/w320/sa.png"
+    },
+    {
+        "name": "Portuguese",
+        "code": "pt",
+        "flag_url": "https://flagcdn.com/w320/pt.png"
+    },
+    {
+        "name": "Japanese",
+        "code": "ja",
+        "flag_url": "https://flagcdn.com/w320/jp.png"
+    },
+    {
+        "name": "Ukrainian",
+        "code": "uk",
+        "flag_url": "https://flagcdn.com/w320/ua.png"
+    }
+]
