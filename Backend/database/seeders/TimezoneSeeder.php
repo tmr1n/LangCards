@@ -7,7 +7,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
-class TimezonesSeeder extends Seeder
+class TimezoneSeeder extends Seeder
 {
     protected TimezoneRepositoryInterface $timezoneRepository;
 

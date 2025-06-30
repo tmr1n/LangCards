@@ -9,7 +9,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
-class LanguagesSeeder extends Seeder
+class LanguageSeeder extends Seeder
 {
     protected Downloader $downloader;
     protected LanguageRepositoryInterface $languageRepository;
