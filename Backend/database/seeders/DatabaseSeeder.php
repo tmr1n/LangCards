@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserTestResult;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +14,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $seeders = [TimezonesSeeder::class, LanguagesSeeder::class];
+        $seeders = [
+            TariffSeeder::class,
+            TimezoneSeeder::class,
+            CurrencySeeder::class,
+            UserSeeder::class,
+            CostSeeder::class,
+            HistoryPurchaseSeeder::class,
+            LanguageSeeder::class,
+            TopicSeeder::class,
+            DeckSeeder::class,
+            VisitedDeckSeeder::class,
+            CardSeeder::class,
+            ExampleSeeder::class,
+            TestSeeder::class,
+            QuestionSeeder::class,
+            QuestionAnswerSeeder::class,
+            UserTestResultSeeder::class,
+            UserTestAnswerSeeder::class,
+            ApiLimitSeeder::class
+            ];
         foreach ($seeders as $seeder) {
             $this->call($seeder);
         }

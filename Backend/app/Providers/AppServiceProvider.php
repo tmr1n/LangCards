@@ -16,6 +16,8 @@ use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
 use App\Repositories\ForgotPasswordRepositories\ForgotPasswordRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
+use App\Repositories\TariffRepositories\TariffRepository;
+use App\Repositories\TariffRepositories\TariffRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepository;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepository;
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
             ForgotPasswordRepositoryInterface::class => ForgotForgotPasswordRepository::class,
             LanguageRepositoryInterface::class => LanguageRepository::class,
             DeckRepositoryInterface::class => DeckRepository::class,
+            TariffRepositoryInterface::class => TariffRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
