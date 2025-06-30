@@ -30,4 +30,9 @@ class CurrencyRepository implements CurrencyRepositoryInterface
         $newCurrency->symbol = $symbol;
         $newCurrency->save();
     }
+
+    public function getAllIdCurrencies()
+    {
+        return $this->model->pluck('id')->toArray();
+    }
 }

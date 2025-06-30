@@ -6,6 +6,8 @@ use App\Models\Currency;
 
 interface CurrencyRepositoryInterface
 {
+    public function getAllIdCurrencies();
+
     public function isExistByCode($code);
     public function getByCode($code);
     public function saveNewCurrency(string $name, string $code, string $symbol);

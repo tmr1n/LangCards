@@ -27,4 +27,9 @@ class TariffRepository implements TariffRepositoryInterface
     {
         return $this->model->where('name', '=', $name)->where('days', '=', $days)->exists();
     }
+
+    public function getAllIdTariffs()
+    {
+        return $this->model->pluck('id')->toArray();
+    }
 }
