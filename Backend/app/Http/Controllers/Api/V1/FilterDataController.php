@@ -40,10 +40,10 @@ class FilterDataController extends Controller
         switch ($nameTable) {
             case Tables::ApiLimit->value:
                 $data = [
-                    'minDay' => $this->apiLimitRepository->getMinDay(),
-                    'maxDay' => $this->apiLimitRepository->getMaxDay(),
-                    'minRequestCount' => $this->apiLimitRepository->getMinRequestCount(),
-                    'maxRequestCount' => $this->apiLimitRepository->getMaxRequestCount(),
+                    'min_day' => $this->apiLimitRepository->getMinDay(),
+                    'max_day' => $this->apiLimitRepository->getMaxDay(),
+                    'min_request_count' => $this->apiLimitRepository->getMinRequestCount(),
+                    'max_request_count' => $this->apiLimitRepository->getMaxRequestCount(),
                 ];
                 return ApiResponse::success("Данные для фильтрации модели $nameTable",
                     (object)['filterParameters' =>new ApiLimitFilterParametersResource((object)$data)]);
