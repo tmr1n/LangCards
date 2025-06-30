@@ -8,6 +8,8 @@ interface UserRepositoryInterface
 {
     public function isExistPasswordAccount(string $email): bool;
 
+    public function getDateOfEndVipStatusByIdUser(int $idUser);
+
     public function getInfoUserAccountByEmail($email);
 
     public function updateCurrencyId(User $user, ?int $currencyId);
@@ -17,4 +19,8 @@ interface UserRepositoryInterface
     public function updateCurrencyIdByIdUser(int $userId, ?int $currencyId);
 
     public function updateTimezoneIdByIdUser(int $userId, ?int $timezoneId);
+
+    public function getInfoAboutUsersForHistoryPurchaseSeeder();
+
+    public function updateEndDateOfVipStatusByIdUser(int $idUser, string $endDate): bool;
 }

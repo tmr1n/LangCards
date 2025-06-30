@@ -6,4 +6,7 @@ interface CostRepositoryInterface
 {
     public function isExistByTariffIdAndCurrencyId(int $tariffId, int $currencyId);
     public function saveNewCost(float $cost, int $tariffId, int $currencyId);
+
+    public function getAllCostsWithActiveTariffByCurrencyId(int $currencyId);
+
 }
