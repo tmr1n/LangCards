@@ -26,4 +26,24 @@ class ApiLimitRepository implements ApiLimitRepositoryInterface
     {
         $this->model->where('day', '<', Carbon::today())->delete();
     }
+
+    public function getMinDay()
+    {
+        return $this->model->min('day');
+    }
+
+    public function getMaxDay()
+    {
+        return $this->model->max('day');
+    }
+
+    public function getMinRequestCount()
+    {
+        return $this->model->min('request_count');
+    }
+
+    public function getMaxRequestCount()
+    {
+        return $this->model->max('request_count');
+    }
 }

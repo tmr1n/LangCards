@@ -5,8 +5,8 @@ use App\Http\Controllers\Api\V1\AuthControllers\AuthController;
 use App\Http\Controllers\Api\V1\AuthControllers\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\AuthControllers\RegistrationController;
 use App\Http\Controllers\Api\V1\ColumnsController;
+use App\Http\Controllers\Api\V1\FilterDataController;
 use App\Http\Controllers\Api\V1\TimezoneController;
-use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(callback: function () {
@@ -22,6 +22,7 @@ Route::prefix('v1')->group(callback: function () {
             Route::post('update',[ForgotPasswordController::class, 'updatePassword'])->name('updatePassword');
         });
         Route::get('/columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
+        Route::get('/filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
     });
     Route::middleware('auth')->group(callback: function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
