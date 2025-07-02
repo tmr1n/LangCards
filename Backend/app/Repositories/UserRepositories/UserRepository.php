@@ -64,4 +64,9 @@ class UserRepository implements UserRepositoryInterface
                 ->where('id', '=', $idUser)
                 ->update(['vip_status_time_end' => $endDate]) > 0;
     }
+
+    public function isExistUserById(int $userId): bool
+    {
+        return $this->model->where('id', '=', $userId)->exists();
+    }
 }

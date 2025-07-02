@@ -31,4 +31,14 @@ class LanguageRepository implements LanguageRepositoryInterface
         $newLanguage->flag_url = $urlToImage;
         $newLanguage->save();
     }
+
+    public function getAllIdLanguages()
+    {
+        return $this->model->select(['id'])->get()->toArray();
+    }
+
+    public function isExistLanguageById(int $languageId)
+    {
+        return $this->model->where('id', '=', $languageId)->exists();
+    }
 }

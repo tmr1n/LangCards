@@ -6,6 +6,7 @@ use App\Models\User;
 
 interface UserRepositoryInterface
 {
+    public function isExistUserById(int $userId): bool;
     public function isExistPasswordAccount(string $email): bool;
 
     public function getDateOfEndVipStatusByIdUser(int $idUser);
