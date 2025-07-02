@@ -24,6 +24,8 @@ use App\Repositories\TariffRepositories\TariffRepository;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepository;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
+use App\Repositories\TopicRepositories\TopicRepository;
+use App\Repositories\TopicRepositories\TopicRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepository;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -47,7 +49,8 @@ class AppServiceProvider extends ServiceProvider
             DeckRepositoryInterface::class => DeckRepository::class,
             TariffRepositoryInterface::class => TariffRepository::class,
             CostRepositoryInterface::class => CostRepository::class,
-            HistoryPurchaseRepositoryInterface::class => HistoryPurchaseRepository::class
+            HistoryPurchaseRepositoryInterface::class => HistoryPurchaseRepository::class,
+            TopicRepositoryInterface::class => TopicRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
