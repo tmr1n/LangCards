@@ -14,6 +14,8 @@ use App\Repositories\DeckRepositories\DeckRepository;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
 use App\Repositories\DeckTopicRepositories\DeckTopicRepository;
 use App\Repositories\DeckTopicRepositories\DeckTopicRepositoryInterface;
+use App\Repositories\ExampleRepositories\ExampleRepository;
+use App\Repositories\ExampleRepositories\ExampleRepositoryInterface;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepository;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepositoryInterface;
 use App\Repositories\LanguageRepositories\LanguageRepository;
@@ -60,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
             DeckTopicRepositoryInterface::class => DeckTopicRepository::class,
             VisitedDeckRepositoryInterface::class=> VisitedDeckRepository::class,
             CardRepositoryInterface::class => CardRepository::class,
+            ExampleRepositoryInterface::class => ExampleRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
