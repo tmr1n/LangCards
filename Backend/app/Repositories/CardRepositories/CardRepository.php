@@ -29,4 +29,14 @@ class CardRepository implements CardRepositoryInterface
         $newCard->deck_id = $deckId;
         $newCard->save();
     }
+
+    public function isExistCardById(int $idCard): bool
+    {
+        return $this->model->where('id', '=', $idCard)->exists();
+    }
+
+    public function getCardById(int $idCard): ?Card
+    {
+        return $this->model->where('id', '=', $idCard)->first();
+    }
 }
