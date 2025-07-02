@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             TopicSeeder::class,
             DeckSeeder::class,
+            DeckTopicSeeder::class,
             VisitedDeckSeeder::class,
             CardSeeder::class,
             ExampleSeeder::class,
