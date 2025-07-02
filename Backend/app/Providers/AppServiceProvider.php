@@ -30,6 +30,8 @@ use App\Repositories\TopicRepositories\TopicRepository;
 use App\Repositories\TopicRepositories\TopicRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepository;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
+use App\Repositories\VisitedDeckRepositories\VisitedDeckRepository;
+use App\Repositories\VisitedDeckRepositories\VisitedDeckRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -54,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
             HistoryPurchaseRepositoryInterface::class => HistoryPurchaseRepository::class,
             TopicRepositoryInterface::class => TopicRepository::class,
             DeckTopicRepositoryInterface::class => DeckTopicRepository::class,
+            VisitedDeckRepositoryInterface::class=> VisitedDeckRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
