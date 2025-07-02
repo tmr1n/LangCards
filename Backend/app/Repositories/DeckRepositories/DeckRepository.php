@@ -22,4 +22,9 @@ class DeckRepository implements DeckRepositoryInterface
         $newDeck->is_premium = $isPremium;
         $newDeck->save();
     }
+
+    public function isExistDeckById(int $id): bool
+    {
+        return $this->model->where('id','=', $id)->exists();
+    }
 }

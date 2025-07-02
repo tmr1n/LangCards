@@ -10,6 +10,8 @@ use App\Repositories\CurrencyRepositories\CurrencyRepository;
 use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\DeckRepositories\DeckRepository;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
+use App\Repositories\DeckTopicRepositories\DeckTopicRepository;
+use App\Repositories\DeckTopicRepositories\DeckTopicRepositoryInterface;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepository;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepositoryInterface;
 use App\Repositories\LanguageRepositories\LanguageRepository;
@@ -51,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
             CostRepositoryInterface::class => CostRepository::class,
             HistoryPurchaseRepositoryInterface::class => HistoryPurchaseRepository::class,
             TopicRepositoryInterface::class => TopicRepository::class,
+            DeckTopicRepositoryInterface::class => DeckTopicRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);

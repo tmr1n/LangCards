@@ -24,4 +24,9 @@ class TopicRepository implements TopicRepositoryInterface
     {
         return $this->model->where('name', '=', $name)->exists();
     }
+
+    public function isExistById(int $id): bool
+    {
+        return $this->model->where('id', '=', $id)->exists();
+    }
 }
