@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\ApiLimitRepositories\ApiLimitRepository;
 use App\Repositories\ApiLimitRepositories\ApiLimitRepositoryInterface;
+use App\Repositories\CardRepositories\CardRepository;
+use App\Repositories\CardRepositories\CardRepositoryInterface;
 use App\Repositories\CostRepositories\CostRepository;
 use App\Repositories\CostRepositories\CostRepositoryInterface;
 use App\Repositories\CurrencyRepositories\CurrencyRepository;
@@ -57,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
             TopicRepositoryInterface::class => TopicRepository::class,
             DeckTopicRepositoryInterface::class => DeckTopicRepository::class,
             VisitedDeckRepositoryInterface::class=> VisitedDeckRepository::class,
+            CardRepositoryInterface::class => CardRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
