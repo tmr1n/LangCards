@@ -28,6 +28,8 @@ use App\Repositories\RegistrationRepositories\RegistrationRepository;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\TariffRepositories\TariffRepository;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
+use App\Repositories\TestRepositories\TestRepository;
+use App\Repositories\TestRepositories\TestRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepository;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
 use App\Repositories\TopicRepositories\TopicRepository;
@@ -63,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
             VisitedDeckRepositoryInterface::class=> VisitedDeckRepository::class,
             CardRepositoryInterface::class => CardRepository::class,
             ExampleRepositoryInterface::class => ExampleRepository::class,
+            TestRepositoryInterface::class => TestRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
