@@ -13,7 +13,14 @@ class RegistrationRepository implements RegistrationRepositoryInterface
         $this->model = $model;
     }
 
-    public function registerUser(string $name, string $email, ?string $password, ?int $timezone_id, ?int $currency_id): void
+    public function registerUser(string $name,
+                                 string $email,
+                                 ?string $password,
+                                 ?int $timezone_id,
+                                 ?int $currency_id,
+                                 ?string $avatar_url = null,
+                                 string $type_user = 'user',
+                                 ?string $vip_status_time_end = null): void
     {
         $user = new User();
         $user->name = $name;
@@ -21,6 +28,14 @@ class RegistrationRepository implements RegistrationRepositoryInterface
         $user->password = bcrypt($password);
         $user->timezone_id = $timezone_id;
         $user->currency_id = $currency_id;
+        $user->avatar_url = $avatar_url;
+        $user->type_user = $type_user;
+        $user->vip_status_time_end = $vip_status_time_end;
         $user->save();
+    }
+
+    public function isExistUserByEmail($email)
+    {
+        return $this->model->where('email','=', $email)->exists();
     }
 }

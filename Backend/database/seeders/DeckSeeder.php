@@ -28,7 +28,7 @@ class DeckSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['name'=>'Животные', 'original_language_id'=>5,'target_language_id'=>1, 'user_id'=>4, 'is_premium'=>false],
+            ['name'=>'Животные', 'original_language_id'=>5,'target_language_id'=>1, 'user_id'=>1, 'is_premium'=>false],
         ];
         foreach ($data as $item) {
             if(!($this->languageRepository->isExistLanguageById($item['original_language_id']) &&
