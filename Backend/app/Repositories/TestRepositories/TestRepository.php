@@ -13,7 +13,7 @@ class TestRepository implements TestRepositoryInterface
         $this->model = $model;
     }
 
-    public function isExistRepositoryById(int $id): bool
+    public function isExistTestById(int $id): bool
     {
         return $this->model->where('id', '=', $id)->exists();
     }

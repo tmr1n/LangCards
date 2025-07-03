@@ -68,8 +68,8 @@ class CardSeeder extends Seeder
             {
                 continue;
             }
-            $normalizeWord = $this->formatter->normalizeString($item['word']);
-            $normalizeTranslate = $this->formatter->normalizeString($item['translate']);
+            $normalizeWord = $this->formatter->normalizeWord($item['word']);
+            $normalizeTranslate = $this->formatter->normalizeWord($item['translate']);
             if ($this->cardRepository->isExistCardByDeckIdAndWord($item['deck_id'], $normalizeWord))
             {
                 continue;

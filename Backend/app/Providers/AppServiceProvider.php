@@ -24,6 +24,8 @@ use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
 use App\Repositories\ForgotPasswordRepositories\ForgotPasswordRepositoryInterface;
+use App\Repositories\QuestionRepositories\QuestionRepository;
+use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\TariffRepositories\TariffRepository;
@@ -66,6 +68,7 @@ class AppServiceProvider extends ServiceProvider
             CardRepositoryInterface::class => CardRepository::class,
             ExampleRepositoryInterface::class => ExampleRepository::class,
             TestRepositoryInterface::class => TestRepository::class,
+            QuestionRepositoryInterface::class => QuestionRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
