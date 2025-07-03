@@ -31,28 +31,28 @@ class QuestionAnswerSeeder extends Seeder
     {
         $data = [
             // Вопрос 1: "Собака" — правильный ответ: Dog
-            ['text_answer' => 'Dog', 'question_id' => 17, 'is_correct' => true],
-            ['text_answer' => 'Cat', 'question_id' => 17, 'is_correct' => false],
-            ['text_answer' => 'Cow', 'question_id' => 17, 'is_correct' => false],
-            ['text_answer' => 'Horse', 'question_id' => 17, 'is_correct' => false],
+            ['text_answer' => 'Dog', 'question_id' => 1, 'is_correct' => true],
+            ['text_answer' => 'Cat', 'question_id' => 1, 'is_correct' => false],
+            ['text_answer' => 'Cow', 'question_id' => 1, 'is_correct' => false],
+            ['text_answer' => 'Horse', 'question_id' => 1, 'is_correct' => false],
 
             // Вопрос 2: "Insert missing word in: at night, the ___ silently climbed..." — Cat
-            ['text_answer' => 'Cat', 'question_id' => 18, 'is_correct' => true],
-            ['text_answer' => 'Dog', 'question_id' => 18, 'is_correct' => false],
-            ['text_answer' => 'Mouse', 'question_id' => 18, 'is_correct' => false],
-            ['text_answer' => 'Bird', 'question_id' => 18, 'is_correct' => false],
+            ['text_answer' => 'Cat', 'question_id' => 2, 'is_correct' => true],
+            ['text_answer' => 'Dog', 'question_id' => 2, 'is_correct' => false],
+            ['text_answer' => 'Mouse', 'question_id' => 2, 'is_correct' => false],
+            ['text_answer' => 'Bird', 'question_id' => 2, 'is_correct' => false],
 
             // Вопрос 3: "Корова" — Cow
-            ['text_answer' => 'Cow', 'question_id' => 19, 'is_correct' => true],
-            ['text_answer' => 'Pig', 'question_id' => 19, 'is_correct' => false],
-            ['text_answer' => 'Sheep', 'question_id' => 19, 'is_correct' => false],
-            ['text_answer' => 'Goat', 'question_id' => 19, 'is_correct' => false],
+            ['text_answer' => 'Cow', 'question_id' => 3, 'is_correct' => true],
+            ['text_answer' => 'Pig', 'question_id' => 3, 'is_correct' => false],
+            ['text_answer' => 'Sheep', 'question_id' => 3, 'is_correct' => false],
+            ['text_answer' => 'Goat', 'question_id' => 3, 'is_correct' => false],
 
             // Вопрос 4: "The ___ rolled in the mud..." — Pig
-            ['text_answer' => 'Pig', 'question_id' => 20, 'is_correct' => true],
-            ['text_answer' => 'Cow', 'question_id' => 20, 'is_correct' => false],
-            ['text_answer' => 'Dog', 'question_id' => 20, 'is_correct' => false],
-            ['text_answer' => 'Horse', 'question_id' => 20, 'is_correct' => false],
+            ['text_answer' => 'Pig', 'question_id' => 4, 'is_correct' => true],
+            ['text_answer' => 'Cow', 'question_id' => 4, 'is_correct' => false],
+            ['text_answer' => 'Dog', 'question_id' => 4, 'is_correct' => false],
+            ['text_answer' => 'Horse', 'question_id' => 4, 'is_correct' => false],
         ];
         foreach ($data as $item) {
             if(!$this->questionRepository->isExistQuestionById($item['question_id'])) {
