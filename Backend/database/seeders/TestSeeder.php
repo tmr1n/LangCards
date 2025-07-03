@@ -27,7 +27,7 @@ class TestSeeder extends Seeder
         $data = [
             [
                 'name'=>'Контрольный тест: животные',
-                'time_seconds'=>20*60,
+                'time_seconds'=>1200,
                 'count_attempts'=>3,
                 'deck_id'=>1
             ],
