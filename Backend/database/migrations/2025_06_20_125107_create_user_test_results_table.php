@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_test_results', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('score');
+            $table->unsignedInteger('score')->nullable();
             $table->dateTime('start_time');
             $table->dateTime('finish_time')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')
