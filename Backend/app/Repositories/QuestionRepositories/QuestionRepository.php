@@ -7,7 +7,11 @@ use App\Models\Question;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
-
+    protected Question $model;
+    public function __construct(Question $model)
+    {
+        $this->model = $model;
+    }
     public function isExistCardForQuestionInSameDeckAsTest(int $cardId, int $testId)
     {
         return Card::where('id', $cardId)
@@ -26,5 +30,15 @@ class QuestionRepository implements QuestionRepositoryInterface
         $newQuestionForTest->card_id = $cardId;
         $newQuestionForTest->test_id = $testId;
         $newQuestionForTest->save();
+    }
+
+    public function isExistQuestionById(int $id): bool
+    {
+        return $this->model->where('id','=', $id)->exists();
+    }
+
+    public function getQuestionWithCardById(int $questionId)
+    {
+        return $this->model->with(['card'])->where('id','=', $questionId)->first();
     }
 }

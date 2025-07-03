@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\QuestionAnswer;
 use App\Repositories\ApiLimitRepositories\ApiLimitRepository;
 use App\Repositories\ApiLimitRepositories\ApiLimitRepositoryInterface;
 use App\Repositories\CardRepositories\CardRepository;
@@ -24,6 +25,8 @@ use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
 use App\Repositories\ForgotPasswordRepositories\ForgotPasswordRepositoryInterface;
+use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepository;
+use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
 use App\Repositories\QuestionRepositories\QuestionRepository;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
@@ -69,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
             ExampleRepositoryInterface::class => ExampleRepository::class,
             TestRepositoryInterface::class => TestRepository::class,
             QuestionRepositoryInterface::class => QuestionRepository::class,
+            QuestionAnswerRepositoryInterface::class => QuestionAnswerRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
