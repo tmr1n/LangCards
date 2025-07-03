@@ -27,7 +27,7 @@ class VisitedDeckSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['deck_id'=>1, 'user_id'=>4],
+            ['deck_id'=>1, 'user_id'=>1],
         ];
         foreach ($data as $item) {
             if(!$this->deckRepository->isExistDeckById($item['deck_id']) || !$this->userRepository->isExistUserById($item['user_id'])) {
