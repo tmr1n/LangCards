@@ -27,4 +27,9 @@ class TestRepository implements TestRepositoryInterface
         $newTest->deck_id = $deckId;
         $newTest->save();
     }
+
+    public function getTestById(int $id): Test
+    {
+        return $this->model->where('id', '=', $id)->first();
+    }
 }
