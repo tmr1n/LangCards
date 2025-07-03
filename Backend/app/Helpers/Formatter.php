@@ -4,7 +4,14 @@ namespace App\Helpers;
 
 class Formatter
 {
-    public function normalizeString(string $name): string
+    protected ValidationInsertedWordInTest $validationInsertedWordInTest;
+
+    public function __construct()
+    {
+        $this->validationInsertedWordInTest = new ValidationInsertedWordInTest();
+    }
+
+    public function normalizeWord(string $name): string
     {
         $name = trim($name);
 
@@ -41,12 +48,25 @@ class Formatter
             },
             $normalized
         );
-
+        // делаем первую букву заглавной
+        $normalized = mb_strtoupper(mb_substr($normalized, 0, 1), 'UTF-8') . mb_substr($normalized, 1);
         // Добавляем точку в конце, если нет знака конца предложения
         if (!preg_match('/[.!?]$/u', $normalized)) {
             $normalized .= '.';
         }
 
         return $normalized;
+    }
+
+    public function replaceInsertedWord(string $sentence, string $word): bool|string
+    {
+        if($this->validationInsertedWordInTest->isExistInsertedWordInSentence($sentence, $word)) {
+            return preg_replace(
+                "/\b" . preg_quote($word, '/') . "\b/iu",
+                "_______",
+                $sentence
+            );
+        }
+        return false;
     }
 }

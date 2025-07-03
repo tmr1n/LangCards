@@ -34,7 +34,7 @@ class TopicSeeder extends Seeder
             ['name' => 'Психология'],
             ['name' => 'Литература']];
         foreach ($data as $item) {
-            $normalizedNameTopic = $this->formatter->normalizeString($item['name']);
+            $normalizedNameTopic = $this->formatter->normalizeWord($item['name']);
             if($normalizedNameTopic === '')
             {
                 continue;
