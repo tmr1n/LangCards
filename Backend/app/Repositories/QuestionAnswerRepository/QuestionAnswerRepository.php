@@ -26,4 +26,9 @@ class QuestionAnswerRepository implements QuestionAnswerRepositoryInterface
     {
         return $this->model->where('text_answer','=',$textAnswer)->where('question_id','=',$questionId)->exists();
     }
+
+    public function getAnswerById(int $answerId): ?QuestionAnswer
+    {
+        return $this->model->where('id','=',$answerId)->first();
+    }
 }

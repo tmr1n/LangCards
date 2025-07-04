@@ -41,6 +41,8 @@ use App\Repositories\TopicRepositories\TopicRepository;
 use App\Repositories\TopicRepositories\TopicRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepository;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
+use App\Repositories\UserTestAnswerRepositories\UserTestAnswerRepository;
+use App\Repositories\UserTestAnswerRepositories\UserTestAnswerRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepository;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use App\Repositories\VisitedDeckRepositories\VisitedDeckRepository;
@@ -76,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
             QuestionRepositoryInterface::class => QuestionRepository::class,
             QuestionAnswerRepositoryInterface::class => QuestionAnswerRepository::class,
             UserTestResultRepositoryInterface::class => UserTestResultRepository::class,
+            UserTestAnswerRepositoryInterface::class => UserTestAnswerRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);

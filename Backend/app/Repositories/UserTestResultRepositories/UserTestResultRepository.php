@@ -26,11 +26,16 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
     public function updateUserTestResultAfterEnding(string $endTime, int $score, int $userTestResultId): void
     {
         $this->model->where('id','=', $userTestResultId)
-            ->update(['end_time' => $endTime, 'score' => $score]);
+            ->update(['finish_time' => $endTime, 'score' => $score]);
     }
 
     public function getCountAttemptsOfTestByUserId($testId, $userId): int
     {
         return $this->model->where('test_id','=',$testId)->where('user_id','=',$userId)->count();
+    }
+
+    public function getUserTestResultById(int $id): ?UserTestResult
+    {
+        return $this->model->where('id', '=', $id)->first();
     }
 }
