@@ -14,6 +14,8 @@ class UserTestResult extends Model implements ColumnLabelsableInterface
     use HasTableColumns;
     protected $table = 'user_test_results';
     protected $guarded = [];
+
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

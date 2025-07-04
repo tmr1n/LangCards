@@ -41,4 +41,9 @@ class QuestionRepository implements QuestionRepositoryInterface
     {
         return $this->model->with(['card'])->where('id','=', $questionId)->first();
     }
+
+    public function isExistQuestionByIdInTest($questionId, $testId)
+    {
+        return $this->model->where('id','=',$questionId)->where('test_id','=',$testId)->exists();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\TestRepositories;
 
+use App\Models\Question;
 use App\Models\Test;
 
 class TestRepository implements TestRepositoryInterface
@@ -26,5 +27,15 @@ class TestRepository implements TestRepositoryInterface
         $newTest->count_attempts = $countAttempts;
         $newTest->deck_id = $deckId;
         $newTest->save();
+    }
+
+    public function getTestById(int $id): Test
+    {
+        return $this->model->where('id', '=', $id)->first();
+    }
+
+    public function getCountQuestionInTest($testId)
+    {
+        return Question::where('test_id','=', $testId)->count();
     }
 }
