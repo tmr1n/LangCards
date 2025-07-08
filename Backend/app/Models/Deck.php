@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\ColumnLabel;
+use App\Http\Filters\Filterable;
 use App\Models\Interfaces\ColumnLabelsableInterface;
 use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
@@ -10,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Deck extends Model implements  ColumnLabelsableInterface
+class Deck extends Model implements ColumnLabelsableInterface
 {
-    use HasTableColumns;
+    use HasTableColumns, Filterable;
     protected $table = 'decks';
     protected $guarded = [];
 
@@ -38,7 +39,7 @@ class Deck extends Model implements  ColumnLabelsableInterface
 
     public function topics(): BelongsToMany
     {
-        return $this->belongsToMany(Deck::class, 'deck_topics', 'deck_id', 'topic_id');
+        return $this->belongsToMany(Topic::class, 'deck_topics', 'deck_id', 'topic_id');
     }
     public function tests(): HasMany
     {

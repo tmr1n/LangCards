@@ -2,7 +2,9 @@
 
 namespace App\Repositories\DeckRepositories;
 
+use App\Http\Filters\FiltersForModels\DeckFilter;
 use App\Models\Deck;
+use App\Services\PaginatorService;
 
 class DeckRepository implements DeckRepositoryInterface
 {
@@ -26,5 +28,13 @@ class DeckRepository implements DeckRepositoryInterface
     public function isExistDeckById(int $id): bool
     {
         return $this->model->where('id','=', $id)->exists();
+    }
+
+    public function getDecksWithPaginationAndFilters(PaginatorService $paginator, DeckFilter $deckFilter, int $countOnPage, int $numberCurrentPage): array
+    {
+        $query = $this->model->with(['originalLanguage', 'targetLanguage','user', 'topics'])->withCount(['visitors', 'tests'])->filter($deckFilter);
+        $data = $paginator->paginate($query, $countOnPage, $numberCurrentPage);
+        $metadataPagination = $paginator->getMetadataForPagination($data);
+        return ['items' => collect($data->items()), "pagination" => $metadataPagination];
     }
 }
