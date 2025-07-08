@@ -32,7 +32,7 @@ class DeckRepository implements DeckRepositoryInterface
 
     public function getDecksWithPaginationAndFilters(PaginatorService $paginator, DeckFilter $deckFilter, int $countOnPage, int $numberCurrentPage): array
     {
-        $query = $this->model->with(['originalLanguage', 'targetLanguage','user', 'topics'])->withCount(['visitors', 'tests'])->filter($deckFilter);
+        $query = $this->model->with(['originalLanguage', 'targetLanguage','user', 'topics'])->withCount(['visitors', 'tests', 'cards'])->filter($deckFilter);
         $data = $paginator->paginate($query, $countOnPage, $numberCurrentPage);
         $metadataPagination = $paginator->getMetadataForPagination($data);
         return ['items' => collect($data->items()), "pagination" => $metadataPagination];
