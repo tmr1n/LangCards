@@ -2,10 +2,14 @@
 
 namespace App\Repositories\DeckRepositories;
 
+use App\Http\Filters\FiltersForModels\DeckFilter;
 use App\Models\Deck;
+use App\Services\PaginatorService;
 
 interface DeckRepositoryInterface
 {
+    public function getDecksWithPaginationAndFilters(PaginatorService $paginator, DeckFilter $deckFilter, int $countOnPage, int $numberCurrentPage): array;
+
     public function isExistDeckById(int $id): bool;
 
     public function saveNewDeck(string $name, int $originalLanguageId, int $targetLanguageId, int $userId, bool $isPremium);
