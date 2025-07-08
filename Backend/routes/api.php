@@ -26,6 +26,7 @@ Route::prefix('v1')->group(callback: function () {
         Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
         Route::get('filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
         Route::get('decks',[DeckController::class, 'getDecks'])->name('getDecks');
+        Route::delete('decks/{deckId}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
     });
     Route::middleware('auth')->group(callback: function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');

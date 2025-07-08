@@ -38,4 +38,11 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
     {
         return $this->model->where('id', '=', $id)->first();
     }
+
+    public function existStartedTestForDeck(int $deckId): bool
+    {
+        return $this->model->whereHas('test', function ($query) use ($deckId) {
+            $query->where('deck_id', $deckId);
+        })->exists();
+    }
 }

@@ -37,4 +37,29 @@ class DeckRepository implements DeckRepositoryInterface
         $metadataPagination = $paginator->getMetadataForPagination($data);
         return ['items' => collect($data->items()), "pagination" => $metadataPagination];
     }
+
+    public function getDeckById(int $id): ?Deck
+    {
+        return $this->model->where('id','=', $id)->first();
+    }
+
+    public function deleteDeckById(int $id): void
+    {
+        $this->model->where('id', '=', $id)->forceDelete();
+    }
+
+    public function deleteDeckByDeckObject(Deck $deck): void
+    {
+        $deck->forceDelete();
+    }
+
+    public function softDeleteDeckById(int $id)
+    {
+        $this->model->where('id', '=', $id)->delete();
+    }
+
+    public function softDeleteDeckByDeckObject(Deck $deck)
+    {
+        $deck->delete();
+    }
 }
