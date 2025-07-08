@@ -21,6 +21,7 @@ class DeckResource extends JsonResource
             'created_at' => $this->created_at->toDateTimeString(),
             "visitors_count"=>$this->visitors_count,
             "tests_count"=>$this->tests_count,
+            'cards_count'=>$this->cards_count,
             'original_language' => (object)[
                 'id'=>$this->originalLanguage->id,
                 'name' => $this->originalLanguage->name,
