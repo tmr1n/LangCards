@@ -17,7 +17,7 @@ return new class extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('question_id')->references('id')->on('questions')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('answer_id')->references('id')->on('question_answers')
+            $table->foreignId('answer_id')->nullable()->references('id')->on('question_answers')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('is_correct');
             $table->timestamps();
