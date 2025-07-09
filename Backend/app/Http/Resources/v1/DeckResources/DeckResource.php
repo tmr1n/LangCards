@@ -18,10 +18,10 @@ class DeckResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'is_premium' => (bool) $this->is_premium,
-            'created_at' => $this->created_at->toDateTimeString(),
-            "visitors_count"=>$this->visitors_count,
-            "tests_count"=>$this->tests_count,
-            'cards_count'=>$this->cards_count,
+            'creation_time' => $this->created_at->toDateTimeString(),
+            "visitors_count"=> $this->visitors_count,
+            "tests_count"=> $this->tests_count,
+            'cards_count'=> $this->cards_count,
             'original_language' => (object)[
                 'id'=>$this->originalLanguage->id,
                 'name' => $this->originalLanguage->name,
@@ -34,7 +34,7 @@ class DeckResource extends JsonResource
                 'code' => $this->targetLanguage->code,
                 'flag_url' => $this->targetLanguage->flag_url,
             ],
-            'user' => [
+            'user' => (object)[
                 'id'=>$this->user->id,
                 'avatar_url'=>$this->user->avatar_url,
                 'name' => $this->user->name,
@@ -43,6 +43,27 @@ class DeckResource extends JsonResource
                 'id' => $topic->id,
                 'name' => $topic->name,
             ]),
+            'tests' => $this->when(isset($this->tests), function () {
+                return $this->tests->map(fn($test) => [
+                    // Структура данных для каждого теста
+                    'id' => $test->id,
+                    'name' => $test->name,
+                    "time_seconds"=> $test->time_seconds,
+                    "count_attempts" => $test->count_attempts,
+                    "creation_time"=> $test->created_at->toDateTimeString()
+                ]);
+            }),
+            'cards' => $this->when(isset($this->cards), function () {
+                return $this->cards->map(fn($card) => [
+                    // Структура данных для каждого теста
+                    'id' => $card->id,
+                    'word'=>$card->word,
+                    'translate'=>$card->translate,
+                    'image_url'=>$card->image_url,
+                    'pronunciation_url'=>$card->pronunciation_url,
+                    'creation_time'=>$card->created_at->toDateTimeString(),
+                ]);
+            }),
         ];
     }
 }
