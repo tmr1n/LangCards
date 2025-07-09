@@ -4,6 +4,7 @@ namespace App\Repositories\QuestionRepositories;
 
 interface QuestionRepositoryInterface
 {
+    public function getQuestionsForTest($testId);
     public function isExistQuestionByIdInTest($questionId, $testId);
 
     public function isExistQuestionById(int $id): bool;
