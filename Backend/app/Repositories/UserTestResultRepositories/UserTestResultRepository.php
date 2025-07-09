@@ -12,7 +12,7 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
         $this->model = $model;
     }
 
-    public function saveNewUserTestResult(string $startTime, int $userId, int $testId, ?string $end_time=null, ?int $score = null): void
+    public function saveNewUserTestResult(string $startTime, int $userId, int $testId, ?string $end_time=null, ?int $score = null): int
     {
         $newUserTestResult = new UserTestResult();
         $newUserTestResult->start_time = $startTime;
@@ -21,6 +21,7 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
         $newUserTestResult->score = $score;
         $newUserTestResult->finish_time = $end_time;
         $newUserTestResult->save();
+        return $newUserTestResult->id;
     }
 
     public function updateUserTestResultAfterEnding(string $endTime, int $score, int $userTestResultId): void
@@ -36,7 +37,7 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
 
     public function getUserTestResultById(int $id): ?UserTestResult
     {
-        return $this->model->where('id', '=', $id)->first();
+        return $this->model->with(['test'])->where('id', '=', $id)->first();
     }
 
     public function existStartedTestForDeck(int $deckId): bool

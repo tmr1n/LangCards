@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Http\Responses\ApiResponse;
 use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepositoryInterface;
@@ -62,7 +63,7 @@ class UserTestAnswerSeeder extends Seeder
         {
             return;
         }
-        if($this->userTestAnswerRepository->isExistAnswerForAttempt($data->user_test_result_id)) // проверка, что ответы не сохранялись ранее для этой попытки
+        if($infoAttempt->finish_time !== null) // проверка, что попытка не была окончена ранее
         {
             return;
         }
@@ -74,7 +75,7 @@ class UserTestAnswerSeeder extends Seeder
             return;
         }
         // проверка, что время на выполнение теста не иссякло
-        $infoTest = $this->testRepository->getTestById($infoAttempt->test_id);
+        $infoTest = $this->testRepository->getTestById($infoAttempt->test->id);
         $countSeconds = $infoTest->time_seconds;
         if(is_int($countSeconds))
         {
@@ -83,11 +84,10 @@ class UserTestAnswerSeeder extends Seeder
                 return;
             }
         }
-
         // проверить, что вопрос находится в тесте, для которого совершается занесение ответа
         foreach ($data->answers_for_question as $answer)
         {
-            if(!$this->questionRepository->isExistQuestionByIdInTest($answer['question_id'], $infoAttempt->test_id))
+            if(!$this->questionRepository->isExistQuestionByIdInTest($answer['question_id'], $infoAttempt->test->id))
             {
                 continue;
             }
@@ -102,7 +102,7 @@ class UserTestAnswerSeeder extends Seeder
                 $countCorrectAnswers++;
             }
         }
-        $countAllQuestions = $this->testRepository->getCountQuestionInTest($infoAttempt->test_id);
+        $countAllQuestions = $this->testRepository->getCountQuestionInTest($infoAttempt->test->id);
         $percent = $countAllQuestions > 0 ? round(($countCorrectAnswers / $countAllQuestions) * 100) : 0;
         $this->userTestResultRepository->updateUserTestResultAfterEnding(Carbon::now(), $percent,$data->user_test_result_id );
     }

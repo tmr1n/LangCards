@@ -13,7 +13,7 @@ class QuestionAnswerRepository implements QuestionAnswerRepositoryInterface
         $this->model = $model;
     }
 
-    public function saveNewAnswer(string $answer, int $questionId, bool $isCorrect)
+    public function saveNewAnswer(string $answer, int $questionId, bool $isCorrect): void
     {
         $newAnswerForQuestion = new QuestionAnswer();
         $newAnswerForQuestion->text_answer = $answer;

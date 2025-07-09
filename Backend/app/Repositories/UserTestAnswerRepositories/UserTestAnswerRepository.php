@@ -12,11 +12,6 @@ class UserTestAnswerRepository implements UserTestAnswerRepositoryInterface
         $this->model = $model;
     }
 
-    public function isExistAnswerForAttempt(int $attemptId): bool
-    {
-        return $this->model->where('user_test_result_id', '=', $attemptId)->exists();
-    }
-
     public function saveNewUserTestAnswer(int $user_test_result_id, int $question_id, int $answer_id, bool $is_correct): void
     {
         $newUserTestAnswer = new UserTestAnswer();
