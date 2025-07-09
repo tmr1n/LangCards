@@ -38,9 +38,16 @@ class DeckRepository implements DeckRepositoryInterface
         return ['items' => collect($data->items()), "pagination" => $metadataPagination];
     }
 
-    public function getDeckById(int $id): ?Deck
+    public function getDeckById(int $id, array $arrayWith = [], array $arrayWithCount = []): ?Deck
     {
-        return $this->model->where('id','=', $id)->first();
+        $query = $this->model->where('id', '=', $id);
+        if(count($arrayWith) > 0){
+            $query->with($arrayWith);
+        }
+        if(count($arrayWithCount) > 0){
+            $query->withCount($arrayWithCount);
+        }
+        return $query->first();
     }
 
     public function deleteDeckById(int $id): void

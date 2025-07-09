@@ -34,25 +34,36 @@ class DeckController extends Controller
         return ApiResponse::success("Данные о колодах на странице $numberCurrentPage", (object)['items'=>DeckResource::collection($data['items']),
             'pagination' => $data['pagination']]);
     }
-    public function deleteDeck(int $deckId)
+    public function deleteDeck(int $id)
     {
         $userId = auth()->id();
-        $currentDeck = $this->deckRepository->getDeckById($deckId);
+        $currentDeck = $this->deckRepository->getDeckById($id);
         if($currentDeck === null)
         {
-            return ApiResponse::error("Колода с id = $deckId не найдена", null, 404);
+            return ApiResponse::error("Колода с id = $id не найдена", null, 404);
         }
         if($currentDeck->user_id !== $userId)
         {
             return ApiResponse::error("Текущий авторизованный пользователь не является автором колоды, поэтому не имеет права на её удаление", null, 403);
         }
-        $hasAnyStartedTests =$this->userTestResultRepository->existStartedTestForDeck($deckId);
+        $hasAnyStartedTests =$this->userTestResultRepository->existStartedTestForDeck($id);
         if($hasAnyStartedTests === false)
         {
-            $this->deckRepository->deleteDeckById($deckId);
-            return ApiResponse::success("Колода с id = $deckId была успешно удалена навсегда");
+            $this->deckRepository->deleteDeckById($id);
+            return ApiResponse::success("Колода с id = $id была успешно удалена навсегда");
         }
-        $this->deckRepository->softDeleteDeckById($deckId);
-        return ApiResponse::success("Колода с id = $deckId была успешно мягко удалена");
+        $this->deckRepository->softDeleteDeckById($id);
+        return ApiResponse::success("Колода с id = $id была успешно мягко удалена");
+    }
+    public function getDeck(int $id)
+    {
+        $arrayCount = ['visitors', 'tests', 'cards'];
+        $arrayWith = ['originalLanguage', 'targetLanguage', 'user','topics', 'tests', 'cards' ];
+        $deck = $this->deckRepository->getDeckById($id,$arrayWith, $arrayCount);
+        if($deck === null)
+        {
+            return ApiResponse::error("Колода с id = $id не найдена", null, 404);
+        }
+        return ApiResponse::success("Колода с id = $id найдена", (object)['item'=>new DeckResource($deck)]);
     }
 }
