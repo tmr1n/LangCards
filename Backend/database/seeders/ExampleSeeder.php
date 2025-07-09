@@ -7,7 +7,6 @@ use App\Helpers\ValidationExampleUsageTranslatedWord;
 use App\Repositories\CardRepositories\CardRepository;
 use App\Repositories\CardRepositories\CardRepositoryInterface;
 use App\Repositories\ExampleRepositories\ExampleRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ExampleSeeder extends Seeder

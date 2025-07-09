@@ -8,7 +8,6 @@ use App\Repositories\CostRepositories\CostRepositoryInterface;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepository;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class HistoryPurchaseSeeder extends Seeder

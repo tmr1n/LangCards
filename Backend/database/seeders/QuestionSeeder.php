@@ -3,13 +3,10 @@
 namespace Database\Seeders;
 
 use App\Helpers\Formatter;
-use App\Helpers\ValidationInsertedWordInTest;
 use App\Repositories\CardRepositories\CardRepositoryInterface;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 
 class QuestionSeeder extends Seeder
 {

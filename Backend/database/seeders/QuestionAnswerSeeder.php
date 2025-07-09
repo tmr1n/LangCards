@@ -4,11 +4,8 @@ namespace Database\Seeders;
 
 use App\Helpers\Formatter;
 use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
-use App\Repositories\QuestionRepositories\QuestionRepository;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 
 class QuestionAnswerSeeder extends Seeder
 {

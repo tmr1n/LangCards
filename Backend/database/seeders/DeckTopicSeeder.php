@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
 use App\Repositories\DeckTopicRepositories\DeckTopicRepositoryInterface;
 use App\Repositories\TopicRepositories\TopicRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DeckTopicSeeder extends Seeder
