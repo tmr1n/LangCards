@@ -8,7 +8,7 @@ interface UserTestResultRepositoryInterface
 {
 
     public function existStartedTestForDeck(int $deckId): bool;
-    public function saveNewUserTestResult(string $startTime, int $userId, int $testId, ?string $end_time=null, ?int $score = null);
+    public function saveNewUserTestResult(string $startTime, int $userId, int $testId, ?string $end_time=null, ?int $score = null): int;
 
     public function updateUserTestResultAfterEnding(string $endTime, int $score, int $userTestResultId);
 

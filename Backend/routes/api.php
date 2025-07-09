@@ -41,6 +41,7 @@ Route::prefix('v1')->group(callback: function () {
 
         Route::prefix('tests')->group(function () {
             Route::post('/start',[UserTestResultController::class, 'start'])->name('startTest');
+            Route::post('/end',[UserTestResultController::class, 'end'])->name('endTest');
         });
         Route::prefix('decks')->group(function () {
             Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
