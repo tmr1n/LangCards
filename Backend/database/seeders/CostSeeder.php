@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Repositories\CostRepositories\CostRepositoryInterface;
 use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CostSeeder extends Seeder

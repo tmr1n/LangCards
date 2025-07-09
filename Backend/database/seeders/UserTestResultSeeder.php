@@ -6,7 +6,6 @@ use App\Repositories\TestRepositories\TestRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserTestResultSeeder extends Seeder

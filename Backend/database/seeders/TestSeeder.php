@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Repositories\DeckRepositories\DeckRepository;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepositoryInterface;
 use Illuminate\Database\Seeder;

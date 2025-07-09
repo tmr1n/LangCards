@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Http\Responses\ApiResponse;
 use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepositoryInterface;
 use App\Repositories\UserTestAnswerRepositories\UserTestAnswerRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserTestAnswerSeeder extends Seeder
@@ -84,15 +82,16 @@ class UserTestAnswerSeeder extends Seeder
                 return;
             }
         }
-        // проверить, что вопрос находится в тесте, для которого совершается занесение ответа
         foreach ($data->answers_for_question as $answer)
         {
+            // проверить, что вопрос находится в тесте, для которого совершается занесение ответа
             if(!$this->questionRepository->isExistQuestionByIdInTest($answer['question_id'], $infoAttempt->test->id))
             {
                 continue;
             }
             $answerFromDB = $this->questionAnswerRepository->getAnswerById($answer['answer_id']);
-            if($answerFromDB->question_id !== $answer['question_id']) // проверка, что предоставленный ответ является возможным ответом на вопрос
+            // проверка, что предоставленный ответ является возможным ответом на вопрос
+            if($answerFromDB->question_id !== $answer['question_id'])
             {
                 continue;
             }
@@ -105,5 +104,13 @@ class UserTestAnswerSeeder extends Seeder
         $countAllQuestions = $this->testRepository->getCountQuestionInTest($infoAttempt->test->id);
         $percent = $countAllQuestions > 0 ? round(($countCorrectAnswers / $countAllQuestions) * 100) : 0;
         $this->userTestResultRepository->updateUserTestResultAfterEnding(Carbon::now(), $percent,$data->user_test_result_id );
+        $questionsForTest = $this->questionRepository->getQuestionsForTest($infoAttempt->test->id);
+        foreach ($questionsForTest as $question)
+        {
+            if(!$this->userTestAnswerRepository->isExistAnswerForQuestionInAttemptOfTest($question->id, $data->user_test_result_id))
+            {
+                $this->userTestAnswerRepository->saveNewUserTestAnswer($data->user_test_result_id, $question->id, null, false);
+            }
+        }
     }
 }

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TariffSeeder extends Seeder

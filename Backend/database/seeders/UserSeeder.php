@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
-use App\Repositories\UserRepositories\UserRepositoryInterface;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
