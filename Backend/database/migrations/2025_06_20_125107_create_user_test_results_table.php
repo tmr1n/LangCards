@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('score')->nullable();
             $table->dateTime('start_time');
             $table->dateTime('finish_time')->nullable();
+            $table->unsignedInteger('number_attempt');
             $table->foreignId('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('test_id')->references('id')->on('tests')

@@ -63,7 +63,7 @@ class UserTestResultController extends Controller
         }
         //
         $currentTime = Carbon::now();
-        $newUserTestResultId =$this->userTestResultRepository->saveNewUserTestResult($currentTime, $userId, $request->testId);
+        $newUserTestResultId =$this->userTestResultRepository->saveNewUserTestResult($currentTime, $userId, $request->testId, $countOfAttemptsTestByUser+1);
         $questionsForTest = $this->questionRepository->getQuestionsForTest($request->testId);
         return ApiResponse::success("Тест с id = $request->testId был начат пользователем с id = $userId",
             (object)['attemptId'=>$newUserTestResultId,'items'=>QuestionResource::collection($questionsForTest)]);

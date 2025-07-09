@@ -46,7 +46,8 @@ class UserTestResultSeeder extends Seeder
             if ($testInfo->count_attempts !== null && $countOfAttemptsTestByUser >= $testInfo->count_attempts) {
                 continue;
             }
-            $this->userTestResultRepository->saveNewUserTestResult($item['start_time'], $item['user_id'], $item['test_id']);
+
+            $this->userTestResultRepository->saveNewUserTestResult($item['start_time'], $item['user_id'], $item['test_id'], $countOfAttemptsTestByUser+1);
         }
     }
 }

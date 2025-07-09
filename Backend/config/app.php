@@ -84,6 +84,10 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    'default_count_on_page' => env('DEFAULT_COUNT_ON_PAGE', 10),
+
+    'default_page' => env('DEFAULT_PAGE', 1),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

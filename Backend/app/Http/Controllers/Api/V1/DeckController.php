@@ -31,8 +31,8 @@ class DeckController extends Controller
 
     public function getDecks(Request $request, PaginatorService $paginator, DeckFilter $deckFilter)
     {
-        $countOnPage = (int)$request->input('countOnPage', 15);
-        $numberCurrentPage = (int)$request->input('page', 1);
+        $countOnPage = (int)$request->input('countOnPage', config('app.default_count_on_page'));
+        $numberCurrentPage = (int)$request->input('page', config('app.default_page'));
         $data = $this->deckRepository->getDecksWithPaginationAndFilters($paginator,$deckFilter, $countOnPage, $numberCurrentPage);
         return ApiResponse::success("Данные о колодах на странице $numberCurrentPage", (object)['items'=>DeckResource::collection($data['items']),
             'pagination' => $data['pagination']]);

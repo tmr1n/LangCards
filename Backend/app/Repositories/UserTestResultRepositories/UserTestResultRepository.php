@@ -3,6 +3,7 @@
 namespace App\Repositories\UserTestResultRepositories;
 
 use App\Models\UserTestResult;
+use App\Services\PaginatorService;
 
 class UserTestResultRepository implements UserTestResultRepositoryInterface
 {
@@ -12,7 +13,7 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
         $this->model = $model;
     }
 
-    public function saveNewUserTestResult(string $startTime, int $userId, int $testId, ?string $end_time=null, ?int $score = null): int
+    public function saveNewUserTestResult(string $startTime, int $userId, int $testId,int $numberAttempt, ?string $end_time=null, ?int $score = null): int
     {
         $newUserTestResult = new UserTestResult();
         $newUserTestResult->start_time = $startTime;
@@ -20,6 +21,7 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
         $newUserTestResult->test_id = $testId;
         $newUserTestResult->score = $score;
         $newUserTestResult->finish_time = $end_time;
+        $newUserTestResult->number_attempt = $numberAttempt;
         $newUserTestResult->save();
         return $newUserTestResult->id;
     }
@@ -45,5 +47,12 @@ class UserTestResultRepository implements UserTestResultRepositoryInterface
         return $this->model->whereHas('test', function ($query) use ($deckId) {
             $query->where('deck_id', $deckId);
         })->exists();
+    }
+
+    public function getResultAttemptsOfCurrentUserWithPagination(PaginatorService $paginatorService,int $userId, int $page, int $countOnPage): array
+    {
+        $query = $this->model->with(['test'])->where('user_id', '=', $userId)->orderBy('created_at', 'desc');
+        $data = $paginatorService->paginate($query, $countOnPage, $page);
+        return ['items' => collect($data->items()), "pagination" => $paginatorService->getMetadataForPagination($data)];
     }
 }
