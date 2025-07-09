@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\v1\QuestionResources\QuestionResource;
 use App\Http\Responses\ApiResponse;
+use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepositoryInterface;
 use App\Repositories\TimezoneRepositories\TimezoneRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
@@ -13,17 +15,22 @@ use Illuminate\Http\Request;
 
 class UserTestResultController extends Controller
 {
+    protected QuestionRepositoryInterface $questionRepository;
     protected UserRepositoryInterface $userRepository;
 
     protected UserTestResultRepositoryInterface $userTestResultRepository;
 
     protected TestRepositoryInterface $testRepository;
 
-    public function __construct(UserTestResultRepositoryInterface $userTestResultRepository, TestRepositoryInterface $testRepository, UserRepositoryInterface $userRepository)
+    public function __construct(UserTestResultRepositoryInterface $userTestResultRepository,
+                                TestRepositoryInterface $testRepository,
+                                UserRepositoryInterface $userRepository,
+                                QuestionRepositoryInterface $questionRepository)
     {
         $this->userTestResultRepository = $userTestResultRepository;
         $this->testRepository = $testRepository;
         $this->userRepository = $userRepository;
+        $this->questionRepository = $questionRepository;
     }
 
     public function start($id)
@@ -47,6 +54,7 @@ class UserTestResultController extends Controller
         //
         $currentTime = Carbon::now();
         $this->userTestResultRepository->saveNewUserTestResult($currentTime, $userId, $id);
-        return ApiResponse::success("Тест с id = $id был начат пользователем с id = $userId");
+        $questionsForTest = $this->questionRepository->getQuestionsForTest($id);
+        return ApiResponse::success("Тест с id = $id был начат пользователем с id = $userId", (object)['items'=>QuestionResource::collection($questionsForTest)]);
     }
 }

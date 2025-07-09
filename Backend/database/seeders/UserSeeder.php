@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'name' => 'chinyonov_vlad',
                 'email' => 'vlad2000100600@gmail.com',
                 'avatar_url' => null,
-                'password' => '78Aeq4883',
+                'password' => '78Aeq4883$',
                 'type_user' => 'user',
                 'currency_id' => null,
                 'timezone_id' => null,

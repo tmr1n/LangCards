@@ -18,7 +18,7 @@ Route::prefix('v1')->group(callback: function () {
         Route::get('/{id}',[DeckController::class, 'getDeck'])->name('getDeck');
     });
 
-    Route::middleware('guest')->group(callback: function () {
+    Route::middleware('guest:sanctum')->group(callback: function () {
         Route::post('registration', [RegistrationController::class, 'registration'])->name('registration');
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::prefix('auth')->group(function () {
@@ -31,7 +31,7 @@ Route::prefix('v1')->group(callback: function () {
         });
 
     });
-    Route::middleware('auth')->group(callback: function () {
+    Route::middleware('auth:sanctum')->group(callback: function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('timezones', [TimezoneController::class, 'getTimezones'])->name('getTimezones');
 

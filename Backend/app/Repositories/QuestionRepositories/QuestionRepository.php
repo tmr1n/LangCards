@@ -4,6 +4,7 @@ namespace App\Repositories\QuestionRepositories;
 
 use App\Models\Card;
 use App\Models\Question;
+use Illuminate\Database\Eloquent\Collection;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
@@ -45,5 +46,10 @@ class QuestionRepository implements QuestionRepositoryInterface
     public function isExistQuestionByIdInTest($questionId, $testId)
     {
         return $this->model->where('id','=',$questionId)->where('test_id','=',$testId)->exists();
+    }
+
+    public function getQuestionsForTest($testId): Collection
+    {
+        return $this->model->with(['card', 'answers'])->where('test_id','=', $testId)->get();
     }
 }
