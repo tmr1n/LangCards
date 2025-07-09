@@ -24,4 +24,6 @@ interface UserRepositoryInterface
     public function getInfoAboutUsersForHistoryPurchaseSeeder();
 
     public function updateEndDateOfVipStatusByIdUser(int $idUser, string $endDate): bool;
+
+    public function hasUserActivePremiumStatusByIdUser(int $idUser): bool;
 }

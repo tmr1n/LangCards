@@ -3,6 +3,7 @@
 namespace App\Repositories\UserRepositories;
 
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -68,5 +69,19 @@ class UserRepository implements UserRepositoryInterface
     public function isExistUserById(int $userId): bool
     {
         return $this->model->where('id', '=', $userId)->exists();
+    }
+
+    public function hasUserActivePremiumStatusByIdUser(int $idUser): bool
+    {
+        $currentUser = $this->model->select(['vip_status_time_end'])->where('id','=',$idUser)->first();
+        if($currentUser->vip_status_time_end === null){
+            return false;
+        }
+        $dateEndOfVipStatusOfCurrentUser = Carbon::parse($currentUser->vip_status_time_end);
+        if($dateEndOfVipStatusOfCurrentUser->isPast())
+        {
+            return false;
+        }
+        return true;
     }
 }

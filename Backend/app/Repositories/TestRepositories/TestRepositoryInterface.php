@@ -6,6 +6,8 @@ use App\Models\Test;
 
 interface TestRepositoryInterface
 {
+    public function isTestForPremiumDeck($testId):bool;
+
     public function getCountQuestionInTest($testId);
 
     public function isExistTestById(int $id): bool;

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\DeckRepositories;
 
+use App\Enums\TypeInfoAboutDeck;
 use App\Http\Filters\FiltersForModels\DeckFilter;
 use App\Models\Deck;
 use App\Services\PaginatorService;
@@ -9,6 +10,7 @@ use App\Services\PaginatorService;
 class DeckRepository implements DeckRepositoryInterface
 {
     protected Deck $model;
+
     public function __construct(Deck $model)
     {
         $this->model = $model;
@@ -27,25 +29,41 @@ class DeckRepository implements DeckRepositoryInterface
 
     public function isExistDeckById(int $id): bool
     {
-        return $this->model->where('id','=', $id)->exists();
+        return $this->model->where('id', '=', $id)->exists();
     }
 
     public function getDecksWithPaginationAndFilters(PaginatorService $paginator, DeckFilter $deckFilter, int $countOnPage, int $numberCurrentPage): array
     {
-        $query = $this->model->with(['originalLanguage', 'targetLanguage','user', 'topics'])->withCount(['visitors', 'tests', 'cards'])->filter($deckFilter);
+        $query = $this->model->with(['originalLanguage', 'targetLanguage', 'user', 'topics'])
+            ->withCount(['visitors', 'tests', 'cards'])
+            ->filter($deckFilter);
         $data = $paginator->paginate($query, $countOnPage, $numberCurrentPage);
         $metadataPagination = $paginator->getMetadataForPagination($data);
         return ['items' => collect($data->items()), "pagination" => $metadataPagination];
     }
 
-    public function getDeckById(int $id, array $arrayWith = [], array $arrayWithCount = []): ?Deck
+    public function getDeckById(int $id, TypeInfoAboutDeck $typeInfoAboutDeck): ?Deck
     {
         $query = $this->model->where('id', '=', $id);
-        if(count($arrayWith) > 0){
-            $query->with($arrayWith);
-        }
-        if(count($arrayWithCount) > 0){
-            $query->withCount($arrayWithCount);
+        if ($typeInfoAboutDeck === TypeInfoAboutDeck::maximum) {
+            $query->with(['originalLanguage',
+                'targetLanguage',
+                'user',
+                'topics',
+                'cards']);
+            $query->withCount(['visitors', 'tests', 'cards']);
+            if (auth()->check()) {
+                $query->with(['tests' => function ($query) {
+                    $userId = auth()->id();
+                    if ($userId !== null) {
+                        $query->withCount([
+                            'userTestResults as authorized_user_attempts' => function ($q) use ($userId) {
+                                $q->where('user_id', $userId);
+                            }
+                        ]);
+                    }
+                }]);
+            }
         }
         return $query->first();
     }

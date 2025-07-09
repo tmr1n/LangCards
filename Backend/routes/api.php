@@ -7,11 +7,17 @@ use App\Http\Controllers\Api\V1\AuthControllers\RegistrationController;
 use App\Http\Controllers\Api\V1\ColumnsController;
 use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\FilterDataController;
+use App\Http\Controllers\Api\V1\UserTestResultController;
 use App\Http\Controllers\Api\V1\TimezoneController;
-use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(callback: function () {
+
+    Route::prefix('decks')->group(function () {
+        Route::get('/',[DeckController::class, 'getDecks'])->name('getDecks');
+        Route::get('/{id}',[DeckController::class, 'getDeck'])->name('getDeck');
+    });
+
     Route::middleware('guest')->group(callback: function () {
         Route::post('registration', [RegistrationController::class, 'registration'])->name('registration');
         Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -23,18 +29,22 @@ Route::prefix('v1')->group(callback: function () {
             Route::post('sendResetLink', [ForgotPasswordController::class, 'sendResetLink'])->name('sendResetLink');
             Route::post('update',[ForgotPasswordController::class, 'updatePassword'])->name('updatePassword');
         });
-        /////
-        Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
-        Route::get('filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
-        Route::prefix('decks')->group(function () {
-            Route::get('/',[DeckController::class, 'getDecks'])->name('getDecks');
-            Route::get('/{id}',[DeckController::class, 'getDeck'])->name('getDeck');
-            Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
-        });
+
     });
     Route::middleware('auth')->group(callback: function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('timezones', [TimezoneController::class, 'getTimezones'])->name('getTimezones');
+
+        /////
+        Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
+        Route::get('filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
+
+        Route::prefix('tests')->group(function () {
+            Route::post('/{id}',[UserTestResultController::class, 'start'])->name('startTest');
+        });
+        Route::prefix('decks')->group(function () {
+            Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
+        });
 
     });
 });
