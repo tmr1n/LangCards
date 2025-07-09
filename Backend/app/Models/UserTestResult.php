@@ -45,6 +45,7 @@ class UserTestResult extends Model implements ColumnLabelsableInterface
             new ColumnLabel('finish_time', 'Время завершения'),
             new ColumnLabel('user_id', 'Пользователь'),
             new ColumnLabel('test_id', 'Тест'),
+            new ColumnLabel('number_attempt', 'Номер попытки'),
             new ColumnLabel('created_at', 'Дата создания'),
             new ColumnLabel('updated_at', 'Дата обновления'),
         ];

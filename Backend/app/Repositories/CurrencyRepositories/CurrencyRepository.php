@@ -35,4 +35,9 @@ class CurrencyRepository implements CurrencyRepositoryInterface
     {
         return $this->model->pluck('id')->toArray();
     }
+
+    public function isExistCurrencyById(int $currencyId)
+    {
+        return $this->model->where('id', '=', $currencyId)->exists();
+    }
 }

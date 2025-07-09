@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\V1\AuthControllers\RegistrationController;
 use App\Http\Controllers\Api\V1\ColumnsController;
 use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\FilterDataController;
+use App\Http\Controllers\Api\V1\HistoryAttemptsTestController;
+use App\Http\Controllers\Api\V1\HistoryPurchaseController;
 use App\Http\Controllers\Api\V1\UserTestResultController;
 use App\Http\Controllers\Api\V1\TimezoneController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +48,11 @@ Route::prefix('v1')->group(callback: function () {
         Route::prefix('decks')->group(function () {
             Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
         });
-
+        Route::prefix('historyAttempts')->group(function () {
+            Route::get('/',[HistoryAttemptsTestController::class,'getAttemptsTests'])->name('getAttemptsTests');
+        });
+        Route::prefix('historyPurchases')->group(function () {
+            Route::get('/',[HistoryPurchaseController::class,'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');
+        });
     });
 });
