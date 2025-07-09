@@ -12,7 +12,7 @@ class UserTestAnswerRepository implements UserTestAnswerRepositoryInterface
         $this->model = $model;
     }
 
-    public function saveNewUserTestAnswer(int $user_test_result_id, int $question_id, int $answer_id, bool $is_correct): void
+    public function saveNewUserTestAnswer(int $user_test_result_id, int $question_id, ?int $answer_id, bool $is_correct): void
     {
         $newUserTestAnswer = new UserTestAnswer();
         $newUserTestAnswer->user_test_result_id=$user_test_result_id;
@@ -20,5 +20,10 @@ class UserTestAnswerRepository implements UserTestAnswerRepositoryInterface
         $newUserTestAnswer->answer_id = $answer_id;
         $newUserTestAnswer->is_correct = $is_correct;
         $newUserTestAnswer->save();
+    }
+
+    public function isExistAnswerForQuestionInAttemptOfTest(int $questionId, int $attemptId): bool
+    {
+        return $this->model->where('user_test_result_id', '=', $attemptId)->where('question_id', '=', $questionId)->exists();
     }
 }

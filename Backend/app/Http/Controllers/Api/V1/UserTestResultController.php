@@ -95,13 +95,14 @@ class UserTestResultController extends Controller
         $countCorrectAnswers = 0;
         foreach ($request->answers as $answer)
         {
-            logger($answer);
+            // проверка, что вопрос, на который предоставляется ответ, существует в рамках теста
             if(!$this->questionRepository->isExistQuestionByIdInTest($answer['question_id'], $infoAttempt->test->id))
             {
                 continue;
             }
             $answerFromDB = $this->questionAnswerRepository->getAnswerById($answer['answer_id']);
-            if($answerFromDB->question_id !== $answer['question_id']) // проверка, что предоставленный ответ является возможным ответом на вопрос
+            // проверка, что предоставленный ответ является возможным ответом на вопрос
+            if($answerFromDB->question_id !== $answer['question_id'])
             {
                 continue;
             }
@@ -114,6 +115,15 @@ class UserTestResultController extends Controller
         $countAllQuestions = $this->testRepository->getCountQuestionInTest($infoAttempt->test->id);
         $percent = $countAllQuestions > 0 ? round(($countCorrectAnswers / $countAllQuestions) * 100) : 0;
         $this->userTestResultRepository->updateUserTestResultAfterEnding(Carbon::now(), $percent,$request->attemptId);
-        return ApiResponse::success("Результаты прохождения теста с id = {$infoAttempt->test->id} для попытки с id = $infoAttempt->id");
+        $questionsForTest = $this->questionRepository->getQuestionsForTest($infoAttempt->test->id);
+        foreach ($questionsForTest as $question)
+        {
+            if(!$this->userTestAnswerRepository->isExistAnswerForQuestionInAttemptOfTest($question->id, $request->attemptId))
+            {
+                $this->userTestAnswerRepository->saveNewUserTestAnswer($request->attemptId, $question->id, null, false);
+            }
+        }
+        $shortResults = (object)['percent'=>$percent, 'total_count_questions'=>$countAllQuestions, 'correct_count_answers'=>$countCorrectAnswers];
+        return ApiResponse::success("Результаты прохождения теста с id = {$infoAttempt->test->id} для попытки с id = $infoAttempt->id", (object)['results'=>$shortResults]);
     }
 }
