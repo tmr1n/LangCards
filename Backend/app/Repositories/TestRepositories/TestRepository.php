@@ -38,4 +38,10 @@ class TestRepository implements TestRepositoryInterface
     {
         return Question::where('test_id','=', $testId)->count();
     }
+
+    public function isTestForPremiumDeck($testId): bool
+    {
+        $test = $this->model->with(['deck'])->where('id', '=', $testId)->first();
+        return $test->deck->is_premium;
+    }
 }

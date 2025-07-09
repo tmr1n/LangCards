@@ -2,26 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Enums\TypeInfoAboutDeck;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\FiltersForModels\DeckFilter;
 use App\Http\Resources\v1\DeckResources\DeckResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\UserTestResult;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
+use App\Repositories\UserRepositories\UserRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use App\Services\PaginatorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeckController extends Controller
 {
+    protected UserRepositoryInterface $userRepository;
     protected DeckRepositoryInterface $deckRepository;
 
     protected UserTestResultRepositoryInterface $userTestResultRepository;
 
-    public function __construct(DeckRepositoryInterface $deckRepository, UserTestResultRepositoryInterface $userTestResultRepository)
+    public function __construct(DeckRepositoryInterface $deckRepository, UserTestResultRepositoryInterface $userTestResultRepository, UserRepositoryInterface $userRepository)
     {
         $this->deckRepository = $deckRepository;
         $this->userTestResultRepository = $userTestResultRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function getDecks(Request $request, PaginatorService $paginator, DeckFilter $deckFilter)
@@ -29,15 +34,13 @@ class DeckController extends Controller
         $countOnPage = (int)$request->input('countOnPage', 15);
         $numberCurrentPage = (int)$request->input('page', 1);
         $data = $this->deckRepository->getDecksWithPaginationAndFilters($paginator,$deckFilter, $countOnPage, $numberCurrentPage);
-        //return ApiResponse::success("Данные о колодах на странице $numberCurrentPage", (object)$data);
-
         return ApiResponse::success("Данные о колодах на странице $numberCurrentPage", (object)['items'=>DeckResource::collection($data['items']),
             'pagination' => $data['pagination']]);
     }
     public function deleteDeck(int $id)
     {
         $userId = auth()->id();
-        $currentDeck = $this->deckRepository->getDeckById($id);
+        $currentDeck = $this->deckRepository->getDeckById($id, TypeInfoAboutDeck::minimum);
         if($currentDeck === null)
         {
             return ApiResponse::error("Колода с id = $id не найдена", null, 404);
@@ -57,12 +60,14 @@ class DeckController extends Controller
     }
     public function getDeck(int $id)
     {
-        $arrayCount = ['visitors', 'tests', 'cards'];
-        $arrayWith = ['originalLanguage', 'targetLanguage', 'user','topics', 'tests', 'cards' ];
-        $deck = $this->deckRepository->getDeckById($id,$arrayWith, $arrayCount);
+        $deck = $this->deckRepository->getDeckById($id,TypeInfoAboutDeck::maximum);
         if($deck === null)
         {
             return ApiResponse::error("Колода с id = $id не найдена", null, 404);
+        }
+        if($deck->is_premium && !$this->userRepository->hasUserActivePremiumStatusByIdUser(auth()->id()))
+        {
+            return ApiResponse::error("Колода с id = $id является премиальной. Её просмотр для пользователей с неактивным премиум-статусом невозможен", null, 403);
         }
         return ApiResponse::success("Колода с id = $id найдена", (object)['item'=>new DeckResource($deck)]);
     }
