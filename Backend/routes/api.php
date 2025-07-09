@@ -40,7 +40,7 @@ Route::prefix('v1')->group(callback: function () {
         Route::get('filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
 
         Route::prefix('tests')->group(function () {
-            Route::post('/{id}',[UserTestResultController::class, 'start'])->name('startTest');
+            Route::post('/start',[UserTestResultController::class, 'start'])->name('startTest');
         });
         Route::prefix('decks')->group(function () {
             Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
