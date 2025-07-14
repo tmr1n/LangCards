@@ -15,13 +15,16 @@ class TariffRepository implements TariffRepositoryInterface
     }
 
 
-    public function saveNewTariff(string $name, int $days, bool $statusActive): void
+    public function saveNewTariff(string $name, int $days, bool $statusActive = true): ?Tariff
     {
         $newTariff = new Tariff();
         $newTariff->name = $name;
         $newTariff->days = $days;
         $newTariff->is_active = $statusActive;
-        $newTariff->save();
+        if ($newTariff->save()) {
+            return $newTariff; // Успешно создана модель
+        }
+        return null; // Ошибка при сохранении
     }
 
     public function isExistTariff(string $name, int $days)

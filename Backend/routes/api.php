@@ -57,6 +57,7 @@ Route::prefix('v1')->group(callback: function () {
         });
         Route::prefix('tariffs')->group(function () {
             Route::get('/',[TariffController::class,'getTariffs'])->name('getTariffs');
+            Route::post('/',[TariffController::class,'addTariff'])->name('addTariff')->middleware('isAdmin');
         });
     });
 });
