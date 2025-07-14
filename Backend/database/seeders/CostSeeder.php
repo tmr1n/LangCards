@@ -36,10 +36,9 @@ class CostSeeder extends Seeder
 
         foreach ($allIdCurrencies as $currency_id) {
             foreach ($allIdTariffs as $tariff_id) {
-                if(!$this->costRepository->isExistByTariffIdAndCurrencyId($tariff_id, $currency_id)) {
-                    $price = random_int(self::MIN_COST, self::MAX_COST) / 100;
-                    $this->costRepository->saveNewCost($price, $tariff_id, $currency_id);
-                }
+                $price = random_int(self::MIN_COST, self::MAX_COST) / 100;
+                $is_active = !$this->costRepository->isExistByTariffIdAndCurrencyId($tariff_id, $currency_id);
+                $this->costRepository->saveNewCost($price, $tariff_id, $currency_id, $is_active);
             }
         }
     }

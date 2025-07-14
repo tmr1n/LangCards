@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\FilterDataController;
 use App\Http\Controllers\Api\V1\HistoryAttemptsTestController;
 use App\Http\Controllers\Api\V1\HistoryPurchaseController;
+use App\Http\Controllers\Api\V1\TariffController;
 use App\Http\Controllers\Api\V1\UserTestResultController;
 use App\Http\Controllers\Api\V1\TimezoneController;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,9 @@ Route::prefix('v1')->group(callback: function () {
         });
         Route::prefix('historyPurchases')->group(function () {
             Route::get('/',[HistoryPurchaseController::class,'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');
+        });
+        Route::prefix('tariffs')->group(function () {
+            Route::get('/',[TariffController::class,'getTariffs'])->name('getTariffs');
         });
     });
 });

@@ -12,9 +12,10 @@ class UserRepository implements UserRepositoryInterface
     {
         $this->model = $model;
     }
-    public function getInfoUserAccountByEmail($email): ?User
+    public function getInfoUserAccountByEmail(string $email): ?User
     {
-        return $this->model->where('email', $email)->select(['id', 'name', 'email', 'type_user', 'currency_id', 'timezone_id','vip_status_time_end'])->first();
+        return $this->model->where('email','=', $email)
+            ->select(['id', 'name', 'email', 'type_user', 'currency_id', 'timezone_id','vip_status_time_end'])->first();
     }
 
     public function updateCurrencyId(User $user, ?int $currencyId): void
@@ -83,5 +84,11 @@ class UserRepository implements UserRepositoryInterface
             return false;
         }
         return true;
+    }
+
+    public function getInfoUserById(int $userId)
+    {
+        return $this->model->where('id','=', $userId)
+            ->select(['id', 'name', 'email', 'type_user', 'currency_id', 'timezone_id','vip_status_time_end'])->first();
     }
 }
