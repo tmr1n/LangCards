@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses;
 
+use App\Enums\TypeStatus;
 use Illuminate\Http\JsonResponse;
 
 class ApiResponse
@@ -9,7 +10,7 @@ class ApiResponse
     public static function success(string $message = null, object $data = null, int $code = 200): JsonResponse
     {
         return response()->json([
-            'status' => 'success',
+            'status' => TypeStatus::success->value,
             'data' => $data,
             'message' => $message,
         ], $code);
@@ -18,7 +19,7 @@ class ApiResponse
     public static function error(string $message, object $errors = null, int $code = 400): JsonResponse
     {
         return response()->json([
-            'status' => 'error',
+            'status' => TypeStatus::error->value,
             'message' => $message,
             'errors' => $errors,
         ], $code);
