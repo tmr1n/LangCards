@@ -2,6 +2,8 @@
 
 namespace App\Repositories\TariffRepositories;
 
+use App\Models\Tariff;
+
 interface TariffRepositoryInterface
 {
 
@@ -9,7 +11,7 @@ interface TariffRepositoryInterface
     public function getActiveTariffsForUserCurrency(int $userCurrencyId);
     public function getAllActiveTariffs();
     public function isExistTariff(string $name, int $days);
-    public function saveNewTariff(string $name, int $days, bool $statusActive);
+    public function saveNewTariff(string $name, int $days, bool $statusActive = true): ?Tariff;
 
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\TariffRequests\AddingNewTariffRequest;
 use App\Http\Resources\v1\TariffResources\TariffResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
@@ -29,5 +30,14 @@ class TariffController extends Controller
         }
         $data = $this->tariffRepository->getActiveTariffsForUserCurrency($authUserInfo->currency_id);
         return ApiResponse::success('Все данные о тарифах', (object)['items'=> TariffResource::collection($data)]);
+    }
+    public function addTariff(AddingNewTariffRequest $request)
+    {
+        $newTariff = $this->tariffRepository->saveNewTariff($request->name, $request->days);
+        if($newTariff === null)
+        {
+            return ApiResponse::error('Не удалось создать тариф', null, 500);
+        }
+        return ApiResponse::success('Новый тариф успешно создан');
     }
 }
