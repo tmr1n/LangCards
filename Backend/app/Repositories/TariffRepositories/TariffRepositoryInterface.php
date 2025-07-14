@@ -4,9 +4,12 @@ namespace App\Repositories\TariffRepositories;
 
 interface TariffRepositoryInterface
 {
-    public function saveNewTariff(string $name, int $days, bool $statusActive);
-
-    public function isExistTariff(string $name, int $days);
 
     public function getAllIdTariffs();
+    public function getActiveTariffsForUserCurrency(int $userCurrencyId);
+    public function getAllActiveTariffs();
+    public function isExistTariff(string $name, int $days);
+    public function saveNewTariff(string $name, int $days, bool $statusActive);
+
+
 }

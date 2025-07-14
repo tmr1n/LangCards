@@ -11,7 +11,9 @@ interface UserRepositoryInterface
 
     public function getDateOfEndVipStatusByIdUser(int $idUser);
 
-    public function getInfoUserAccountByEmail($email);
+    public function getInfoUserAccountByEmail(string $email);
+
+    public function getInfoUserById(int $userId);
 
     public function updateCurrencyId(User $user, ?int $currencyId);
 

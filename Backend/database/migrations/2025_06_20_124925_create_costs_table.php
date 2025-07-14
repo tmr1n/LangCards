@@ -18,6 +18,7 @@ return new class extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('tariff_id')->references('id')->on('tariffs')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

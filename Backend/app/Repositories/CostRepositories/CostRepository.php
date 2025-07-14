@@ -19,12 +19,13 @@ class CostRepository implements CostRepositoryInterface
         return $this->model->where('tariff_id','=', $tariffId)->where('currency_id','=',$currencyId)->exists();
     }
 
-    public function saveNewCost(float $cost, int $tariffId, int $currencyId)
+    public function saveNewCost(float $cost, int $tariffId, int $currencyId, bool $isActive)
     {
         $newCost = new Cost();
         $newCost->cost = $cost;
         $newCost->currency_id = $currencyId;
         $newCost->tariff_id = $tariffId;
+        $newCost->is_active = $isActive;
         $newCost->save();
     }
 
