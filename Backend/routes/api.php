@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\FilterDataController;
 use App\Http\Controllers\Api\V1\HistoryAttemptsTestController;
 use App\Http\Controllers\Api\V1\HistoryPurchaseController;
+use App\Http\Controllers\Api\V1\LanguageController;
+use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\TariffController;
 use App\Http\Controllers\Api\V1\UserTestResultController;
 use App\Http\Controllers\Api\V1\TimezoneController;
@@ -62,5 +64,9 @@ Route::prefix('v1')->group(callback: function () {
             Route::get('/',[TariffController::class,'getTariffs'])->name('getTariffs');
             Route::post('/',[TariffController::class,'addTariff'])->name('addTariff')->middleware('isAdmin');
         });
+        Route::prefix('languages')->group(function () {
+           Route::get('/', [LanguageController::class, 'getLanguages'])->name('getLanguages');
+        });
+        Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
     });
 });
