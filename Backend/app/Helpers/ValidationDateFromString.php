@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class ValidationDateFromString
 {
-    public function validate(string $date, string $format = 'd-m-Y')
+    public function validate(string $date, string $format = 'd-m-Y'): bool
     {
         try {
             $convertedDate = Carbon::createFromFormat($format, $date);

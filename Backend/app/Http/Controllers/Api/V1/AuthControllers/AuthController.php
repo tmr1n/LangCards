@@ -38,9 +38,9 @@ class AuthController extends Controller
         $user = $this->loginRepository->getUserByEmail($request->email);
         if($user->password === null || !Hash::check($request->password, $user->password))
         {
-            return ApiResponse::error("Пользователь с заданным email - адресом и паролем не найден", null, 401);
+            return ApiResponse::error(__('api.user_not_found_by_email'), null, 401);
         }
-        return ApiResponse::success('Пользователь успешно авторизован',(object)[
+        return ApiResponse::success(__('api.success_authorization_email'),(object)[
             'user' => new AuthUserResource($user),
             'token' => $user->createToken('auth-token')->plainTextToken
         ]);
@@ -48,13 +48,13 @@ class AuthController extends Controller
     public function redirect($provider)
     {
         if(!in_array($provider, $this->acceptedProviders)){
-            return ApiResponse::error("Отсутствует поддержка провайдера: $provider", null, 401);
+            return ApiResponse::error(__('api.auth_provider_not_supported', ['provider'=>$provider]), null, 401);
         }
         $url = Socialite::driver($provider)
             ->stateless()
             ->redirect()
             ->getTargetUrl();
-        return ApiResponse::success('Получена ссылка для OAuth - авторизации через провайдера '.$provider, (object)['url'=>$url]);
+        return ApiResponse::success(__('api.getting_oauth_url', ['provider'=>$provider]), (object)['url'=>$url]);
     }
 
     public function handleCallback($provider, Request $request)
@@ -76,13 +76,13 @@ class AuthController extends Controller
                     $user = $this->userRepository->getInfoUserAccountByEmail($email);
                     if($user === null)
                     {
-                        return ApiResponse::error("Произошла ошибка при регистрации пользователя через провайдера $provider", null, 500);
+                        return ApiResponse::error(__('api.error_registration_oauth',['provider'=>$provider]), null, 500);
                     }
                     $timezoneId = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::timezoneRequest);
                     $currencyIdFromDatabase = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::currencyRequest);
                     $this->userRepository->updateTimezoneId($user, $timezoneId);
                     $this->userRepository->updateCurrencyId($user, $currencyIdFromDatabase);
-                    return ApiResponse::success('Пользователь успешно авторизован',(object)[
+                    return ApiResponse::success(__('api.success_authorization_with_oauth'),(object)[
                         'user' => new AuthUserResource($user),
                         'token' => $user->createToken('auth-token')->plainTextToken
                     ]);
@@ -93,27 +93,27 @@ class AuthController extends Controller
                 {
                     if($userDB->password === null) // уже был создан аккаунт по gmail - почте через google авторизацию
                     {
-                        return ApiResponse::success('Пользователь успешно авторизован',(object)[
+                        return ApiResponse::success(__('api.success_authorization_with_oauth'),(object)[
                             'user' => new AuthUserResource($userDB),
                             'token' => $userDB->createToken('auth-token')->plainTextToken
                         ]);
                     }
                     else // был создан аккаунт по gmail - почте с использованием пароля
                     {
-                        return ApiResponse::error("Невозможна авторизация через gmail, так как эта почта использовалась для авторизации с паролем", null, 409);
+                        return ApiResponse::error(__('api.auth_gmail_conflict'), null, 409);
                     }
                 }
             }
-            return ApiResponse::error("Отсутствует поддержка провайдера: $provider", null, 401);
+            return ApiResponse::error(__('api.provider_oauth_not_supported', ['provider'=>$provider]), null, 401);
         } catch (Exception $exception) {
             logger($exception->getMessage());
-            return ApiResponse::error("Ошибка авторизации через $provider", null, 500);
+            return ApiResponse::error(__('api.common_mistake_authorization_with_oauth', ['provider'=>$provider]), null, 500);
         }
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        return ApiResponse::success('Выход из аккаунта успешно совершён');
+        return ApiResponse::success(__('success_logout'));
     }
 }
