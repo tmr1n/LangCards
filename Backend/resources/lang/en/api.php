@@ -13,4 +13,9 @@ return [
     'provider_oauth_not_supported' => 'OAuth provider :provider is not supported',
     'common_mistake_authorization_with_oauth' => 'Authorization error via :provider',
     'success_logout' => 'Logout completed successfully',
+    'user_not_registered_with_password' => 'The user with the specified email address was not registered using a password!',
+    'password_reset_link_sent' => 'A password reset link has been sent to the email address. Please check your spam folder as well!',
+    'invalid_password_reset_token' => 'Invalid password reset token',
+    'expired_password_reset_token' => 'The password reset token has expired',
+    'user_password_changed_successfully' => 'The user password has been changed successfully!',
 ];

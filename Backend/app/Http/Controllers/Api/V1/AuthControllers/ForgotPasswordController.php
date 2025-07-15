@@ -30,25 +30,25 @@ class ForgotPasswordController extends Controller
     {
         if (!$this->userRepository->isExistPasswordAccount($request->email))
         {
-            return ApiResponse::error('Пользователь с заданным email - адресом не был зарегистрирован с использованием пароля!',null, 409);
+            return ApiResponse::error(__('api.user_not_registered_with_password'),null, 409);
         }
         $token = Str::uuid();
         $this->forgotPasswordRepository->updateOrCreateTokenByEmail($request->email, $token);
         Mail::to($request->email)->send(new PasswordResetMail($request->email, $token));
-        return ApiResponse::success('Сообщение с ссылкой для сброса пароля было отправлено на email - адрес. Проверьте папку спам на электронной почте!');
+        return ApiResponse::success(__('api.password_reset_link_sent'));
     }
     public function updatePassword(ResetPasswordRequest $request): JsonResponse
     {
         $dataResetPasswordToken = $this->forgotPasswordRepository->getInfoAboutTokenResetPassword($request->email);
 
         if (!$dataResetPasswordToken || !Hash::check($request->token, $dataResetPasswordToken->token)) {
-            return ApiResponse::error('Невалидный токен смены пароля');
+            return ApiResponse::error(__('api.invalid_password_reset_token'));
         }
         if (Carbon::parse($dataResetPasswordToken->created_at)->addMinutes(60)->isPast()) {
-            return ApiResponse::error('Срок годности токена истёк');
+            return ApiResponse::error(__('api.expired_password_reset_token'));
         }
         $this->forgotPasswordRepository->updatePassword($request->email, $request->password);
         $this->forgotPasswordRepository->deleteTokenByEmail($request->email);
-        return ApiResponse::success('Пароль пользователя был успешно изменён!');
+        return ApiResponse::success(__('api.user_password_changed_successfully'));
     }
 }
