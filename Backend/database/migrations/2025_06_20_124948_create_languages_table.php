@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('native_name');
             $table->char('code', 2);
             $table->string('flag_url');
+            $table->string('locale', 10);
             $table->timestamps();
         });
     }

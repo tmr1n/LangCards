@@ -18,16 +18,18 @@ class LanguageRepository implements LanguageRepositoryInterface
         return $this->model->select('name')->get()->toArray();
     }
 
-    public function isExistLanguageByName(string $languageName)
+    public function isExistLanguageByLocale(string $languageLocale)
     {
-        return $this->model->where('name', $languageName)->exists();
+        return $this->model->where('locale','=', $languageLocale)->exists();
     }
 
-    public function saveLanguage(string $languageName, string $languageCode, string $urlToImage): void
+    public function saveLanguage(string $languageName,string $native_name, string $languageCode,string $locale, string $urlToImage): void
     {
         $newLanguage = new Language();
         $newLanguage->name = $languageName;
+        $newLanguage->native_name = $native_name;
         $newLanguage->code = $languageCode;
+        $newLanguage->locale = $locale;
         $newLanguage->flag_url = $urlToImage;
         $newLanguage->save();
     }
@@ -40,5 +42,10 @@ class LanguageRepository implements LanguageRepositoryInterface
     public function isExistLanguageById(int $languageId)
     {
         return $this->model->where('id', '=', $languageId)->exists();
+    }
+
+    public function getAllLanguages()
+    {
+        return $this->model->get();
     }
 }

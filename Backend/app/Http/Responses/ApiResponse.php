@@ -11,8 +11,8 @@ class ApiResponse
     {
         return response()->json([
             'status' => TypeStatus::success->value,
-            'data' => $data,
             'message' => $message,
+            'data' => $data,
         ], $code);
     }
 

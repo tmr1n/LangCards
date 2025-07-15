@@ -32,9 +32,9 @@ class LanguageSeeder extends Seeder
                 // Преобразуем JSON в массив объектов
                 $data = json_decode($json); // вернёт массив stdClass объектов
                 foreach ($data as $language) {
-                    if (!$this->languageRepository->isExistLanguageByName($language->name)) {
+                    if (!$this->languageRepository->isExistLanguageByLocale($language->name)) {
                         $pathToImageOnServer = $this->downloader->downloadImage($language->flag_url, $language->code);
-                        $this->languageRepository->saveLanguage($language->name, $language->code, $pathToImageOnServer === null ? $language->flag_url : $pathToImageOnServer);
+                        $this->languageRepository->saveLanguage($language->name,$language->native_name, $language->code,$language->locale, $pathToImageOnServer === null ? $language->flag_url : $pathToImageOnServer);
                     }
                 }
             } catch (FileNotFoundException $e) {
