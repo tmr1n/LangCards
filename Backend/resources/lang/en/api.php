@@ -18,4 +18,6 @@ return [
     'invalid_password_reset_token' => 'Invalid password reset token',
     'expired_password_reset_token' => 'The password reset token has expired',
     'user_password_changed_successfully' => 'The user password has been changed successfully!',
+    'user_not_registered' => 'User is not registered',
+    'user_registered_successfully' => 'New user registered successfully'
 ];

@@ -28,17 +28,16 @@ class RegistrationController extends Controller
 
     public function registration(RegistrationRequest $request): JsonResponse
     {
-        //$ip = '151.0.18.5'; // или $request->ip() для IP клиента
         $this->registrationRepository->registerUser($request->name, $request->email, $request->password, null,null);
         $user = $this->userRepository->getInfoUserAccountByEmail($request->email);
         if($user === null)
         {
-            return ApiResponse::error('Пользователь не был зарегистрирован',null,500);
+            return ApiResponse::error(__('api.user_not_registered'),null,500);
         }
         $timezoneId = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::timezoneRequest);
         $currencyIdFromDatabase = $this->apiService->makeRequest($request->ip(),$user->id, TypeRequestApi::currencyRequest);
         $this->userRepository->updateTimezoneId($user, $timezoneId);
         $this->userRepository->updateCurrencyId($user, $currencyIdFromDatabase);
-        return ApiResponse::success('Новый пользователь успешно зарегистрирован', null, 201);
+        return ApiResponse::success(__('api.user_registered_successfully'), null, 201);
     }
 }
