@@ -17,5 +17,7 @@ return [
     'password_reset_link_sent' => 'Сообщение с ссылкой для сброса пароля было отправлено на email - адрес. Проверьте папку спам на электронной почте!',
     'invalid_password_reset_token' => 'Невалидный токен смены пароля',
     'expired_password_reset_token' => 'Срок годности токена истёк',
-    'user_password_changed_successfully' => 'Пароль пользователя был успешно изменён!'
+    'user_password_changed_successfully' => 'Пароль пользователя был успешно изменён!',
+    'user_not_registered'=>'Пользователь не был зарегистрирован',
+    'user_registered_successfully'=>'Новый пользователь успешно зарегистрирован'
 ];
