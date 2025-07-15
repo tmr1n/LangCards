@@ -8,6 +8,7 @@ use App\Traits\HasTableColumns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Question extends Model implements ColumnLabelsableInterface
 {
@@ -26,6 +27,10 @@ class Question extends Model implements ColumnLabelsableInterface
     public function answers(): HasMany
     {
         return $this->hasMany(QuestionAnswer::class, 'question_id');
+    }
+    public function correctAnswer(): HasOne
+    {
+        return $this->hasOne(QuestionAnswer::class, 'question_id')->where('is_correct', '=', true);
     }
     public function userTestAnswers(): HasMany
     {
