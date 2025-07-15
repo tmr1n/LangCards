@@ -19,60 +19,62 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(callback: function () {
+    Route::middleware('setApiLocale')->group(callback: function () {
 
-    Route::post('test', [TestController::class, 'test'])->name('test');
+        Route::get('test', [TestController::class, 'test'])->name('test');
 
-    Route::prefix('decks')->group(function () {
-        Route::get('/',[DeckController::class, 'getDecks'])->name('getDecks');
-        Route::get('/{id}',[DeckController::class, 'getDeck'])->where('id', '[0-9]+')->name('getDeck');
-    });
-
-    Route::middleware('guest:sanctum')->group(callback: function () {
-        Route::post('registration', [RegistrationController::class, 'registration'])->name('registration');
-        Route::post('login', [AuthController::class, 'login'])->name('login');
-        Route::prefix('auth')->group(function () {
-            Route::get('{provider}/redirect', [AuthController::class, 'redirect'])->name('redirect');
-            Route::get('{provider}/callback', [AuthController::class, 'handleCallback'])->name('handleCallback');
-        });
-        Route::prefix('password')->group(function () {
-            Route::post('sendResetLink', [ForgotPasswordController::class, 'sendResetLink'])->name('sendResetLink');
-            Route::post('update',[ForgotPasswordController::class, 'updatePassword'])->name('updatePassword');
-        });
-
-    });
-    Route::middleware('auth:sanctum')->group(callback: function () {
-        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::get('timezones', [TimezoneController::class, 'getTimezones'])->name('getTimezones');
-
-        /////
-        Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
-        Route::get('filtersData/{nameTable}',[FilterDataController::class, 'getFilterData'])->name('getFilterData');
-
-        Route::prefix('tests')->group(function () {
-            Route::post('/start',[UserTestResultController::class, 'start'])->name('startTest');
-            Route::post('/end',[UserTestResultController::class, 'end'])->name('endTest');
-        });
         Route::prefix('decks')->group(function () {
-            Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->where('id', '[0-9]+')->name('deleteDeck');
+            Route::get('/', [DeckController::class, 'getDecks'])->name('getDecks');
+            Route::get('/{id}', [DeckController::class, 'getDeck'])->where('id', '[0-9]+')->name('getDeck');
         });
-        Route::prefix('historyAttempts')->group(function () {
-            Route::get('/',[HistoryAttemptsTestController::class,'getAttemptsTests'])->name('getAttemptsTests');
+
+        Route::middleware('guest:sanctum')->group(callback: function () {
+            Route::post('registration', [RegistrationController::class, 'registration'])->name('registration');
+            Route::post('login', [AuthController::class, 'login'])->name('login');
+            Route::prefix('auth')->group(function () {
+                Route::get('{provider}/redirect', [AuthController::class, 'redirect'])->name('redirect');
+                Route::get('{provider}/callback', [AuthController::class, 'handleCallback'])->name('handleCallback');
+            });
+            Route::prefix('password')->group(function () {
+                Route::post('sendResetLink', [ForgotPasswordController::class, 'sendResetLink'])->name('sendResetLink');
+                Route::post('update', [ForgotPasswordController::class, 'updatePassword'])->name('updatePassword');
+            });
+
         });
-        Route::prefix('answers')->group(function () {
-            Route::get('/{attemptId}',[AnswerController::class, 'getAnswersInAttempt'])->where('id', '[0-9]+')->name('getAnswersInAttempt');
+        Route::middleware('auth:sanctum')->group(callback: function () {
+            Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+            Route::get('timezones', [TimezoneController::class, 'getTimezones'])->name('getTimezones');
+
+            /////
+            Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
+            Route::get('filtersData/{nameTable}', [FilterDataController::class, 'getFilterData'])->name('getFilterData');
+
+            Route::prefix('tests')->group(function () {
+                Route::post('/start', [UserTestResultController::class, 'start'])->name('startTest');
+                Route::post('/end', [UserTestResultController::class, 'end'])->name('endTest');
+            });
+            Route::prefix('decks')->group(function () {
+                Route::delete('/{id}', [DeckController::class, 'deleteDeck'])->where('id', '[0-9]+')->name('deleteDeck');
+            });
+            Route::prefix('historyAttempts')->group(function () {
+                Route::get('/', [HistoryAttemptsTestController::class, 'getAttemptsTests'])->name('getAttemptsTests');
+            });
+            Route::prefix('answers')->group(function () {
+                Route::get('/{attemptId}', [AnswerController::class, 'getAnswersInAttempt'])->where('id', '[0-9]+')->name('getAnswersInAttempt');
+            });
+            Route::prefix('historyPurchases')->group(function () {
+                Route::get('/', [HistoryPurchaseController::class, 'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');
+            });
+            Route::prefix('tariffs')->group(function () {
+                Route::get('/', [TariffController::class, 'getTariffs'])->name('getTariffs');
+                Route::post('/', [TariffController::class, 'addTariff'])->name('addTariff')->middleware('isAdmin');
+                Route::patch('/{id}', [TariffController::class, 'changeTariffStatus'])->where('id', '[0-9]+')
+                    ->name('changeTariffStatus')->middleware('isAdmin');
+            });
+            Route::prefix('languages')->group(function () {
+                Route::get('/', [LanguageController::class, 'getLanguages'])->name('getLanguages');
+            });
+            Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
         });
-        Route::prefix('historyPurchases')->group(function () {
-            Route::get('/',[HistoryPurchaseController::class,'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');
-        });
-        Route::prefix('tariffs')->group(function () {
-            Route::get('/',[TariffController::class,'getTariffs'])->name('getTariffs');
-            Route::post('/',[TariffController::class,'addTariff'])->name('addTariff')->middleware('isAdmin');
-            Route::patch('/{id}',[TariffController::class,'changeTariffStatus'])->where('id', '[0-9]+')
-                ->name('changeTariffStatus')->middleware('isAdmin');
-        });
-        Route::prefix('languages')->group(function () {
-           Route::get('/', [LanguageController::class, 'getLanguages'])->name('getLanguages');
-        });
-        Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
     });
 });

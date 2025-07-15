@@ -8,6 +8,6 @@ class ProcessHunspellCheckException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("Произошла ошибка при работе утилиты Hunspell");
+        parent::__construct(__('api.error_working_hunspell'));
     }
 }
