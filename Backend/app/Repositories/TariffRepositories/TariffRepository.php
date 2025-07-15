@@ -71,4 +71,16 @@ class TariffRepository implements TariffRepositoryInterface
             }])
             ->get();
     }
+
+    public function isExistTariffById(int $tariffId)
+    {
+        return $this->model->where('id', '=', $tariffId)->exists();
+    }
+
+    public function changeStatus($tariffId): void
+    {
+        $currentTariff = $this->model->where('id', '=', $tariffId)->first();
+        $currentTariff->is_active = !$currentTariff->is_active;
+        $currentTariff->save();
+    }
 }

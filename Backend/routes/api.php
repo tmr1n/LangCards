@@ -23,7 +23,7 @@ Route::prefix('v1')->group(callback: function () {
 
     Route::prefix('decks')->group(function () {
         Route::get('/',[DeckController::class, 'getDecks'])->name('getDecks');
-        Route::get('/{id}',[DeckController::class, 'getDeck'])->name('getDeck');
+        Route::get('/{id}',[DeckController::class, 'getDeck'])->where('id', '[0-9]+')->name('getDeck');
     });
 
     Route::middleware('guest:sanctum')->group(callback: function () {
@@ -52,7 +52,7 @@ Route::prefix('v1')->group(callback: function () {
             Route::post('/end',[UserTestResultController::class, 'end'])->name('endTest');
         });
         Route::prefix('decks')->group(function () {
-            Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->name('deleteDeck');
+            Route::delete('/{id}',[DeckController::class, 'deleteDeck'])->where('id', '[0-9]+')->name('deleteDeck');
         });
         Route::prefix('historyAttempts')->group(function () {
             Route::get('/',[HistoryAttemptsTestController::class,'getAttemptsTests'])->name('getAttemptsTests');
@@ -63,6 +63,8 @@ Route::prefix('v1')->group(callback: function () {
         Route::prefix('tariffs')->group(function () {
             Route::get('/',[TariffController::class,'getTariffs'])->name('getTariffs');
             Route::post('/',[TariffController::class,'addTariff'])->name('addTariff')->middleware('isAdmin');
+            Route::patch('/{id}',[TariffController::class,'changeTariffStatus'])->where('id', '[0-9]+')
+                ->name('changeTariffStatus')->middleware('isAdmin');
         });
         Route::prefix('languages')->group(function () {
            Route::get('/', [LanguageController::class, 'getLanguages'])->name('getLanguages');

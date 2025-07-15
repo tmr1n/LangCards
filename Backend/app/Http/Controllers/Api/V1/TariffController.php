@@ -40,4 +40,13 @@ class TariffController extends Controller
         }
         return ApiResponse::success('Новый тариф успешно создан');
     }
+    public function changeTariffStatus($id)
+    {
+        if(!$this->tariffRepository->isExistTariffById($id))
+        {
+            return ApiResponse::error("Отсутствует тариф с id = $id", null, 404);
+        }
+        $this->tariffRepository->changeStatus($id);
+        return ApiResponse::success("Состояние тарифа было изменено");
+    }
 }
