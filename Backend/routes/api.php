@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\AuthControllers\AuthController;
 use App\Http\Controllers\Api\V1\AuthControllers\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\AuthControllers\RegistrationController;
@@ -56,6 +57,9 @@ Route::prefix('v1')->group(callback: function () {
         });
         Route::prefix('historyAttempts')->group(function () {
             Route::get('/',[HistoryAttemptsTestController::class,'getAttemptsTests'])->name('getAttemptsTests');
+        });
+        Route::prefix('answers')->group(function () {
+            Route::get('/{attemptId}',[AnswerController::class, 'getAnswersInAttempt'])->where('id', '[0-9]+')->name('getAnswersInAttempt');
         });
         Route::prefix('historyPurchases')->group(function () {
             Route::get('/',[HistoryPurchaseController::class,'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');

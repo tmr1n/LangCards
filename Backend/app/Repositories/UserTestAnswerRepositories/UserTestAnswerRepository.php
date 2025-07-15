@@ -3,6 +3,7 @@
 namespace App\Repositories\UserTestAnswerRepositories;
 
 use App\Models\UserTestAnswer;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserTestAnswerRepository implements UserTestAnswerRepositoryInterface
 {
@@ -25,5 +26,15 @@ class UserTestAnswerRepository implements UserTestAnswerRepositoryInterface
     public function isExistAnswerForQuestionInAttemptOfTest(int $questionId, int $attemptId): bool
     {
         return $this->model->where('user_test_result_id', '=', $attemptId)->where('question_id', '=', $questionId)->exists();
+    }
+
+    public function getAnswersForAttemptId(int $attemptId, bool $canAddCorrectAnswer): Collection
+    {
+        return $this->model->with(['questionAnswer', 'question'=>function ($query) use ($canAddCorrectAnswer) {
+            $query->with(['card']);
+            if($canAddCorrectAnswer){
+                $query->with(['correctAnswer']);
+            }
+        }])->where('user_test_result_id', '=', $attemptId)->get();
     }
 }
