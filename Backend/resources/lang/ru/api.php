@@ -12,5 +12,10 @@ return [
     'auth_gmail_conflict'=>"Невозможна авторизация через gmail, так как эта почта использовалась для авторизации с паролем",
     'provider_oauth_not_supported'=>"Отсутствует поддержка провайдера - :provider",
     'common_mistake_authorization_with_oauth'=>"Ошибка авторизации через :provider",
-    'success_logout'=>'Выход из аккаунта успешно совершён'
+    'success_logout'=>'Выход из аккаунта успешно совершён',
+    'user_not_registered_with_password' => 'Пользователь с заданным email - адресом не был зарегистрирован с использованием пароля!',
+    'password_reset_link_sent' => 'Сообщение с ссылкой для сброса пароля было отправлено на email - адрес. Проверьте папку спам на электронной почте!',
+    'invalid_password_reset_token' => 'Невалидный токен смены пароля',
+    'expired_password_reset_token' => 'Срок годности токена истёк',
+    'user_password_changed_successfully' => 'Пароль пользователя был успешно изменён!'
 ];
