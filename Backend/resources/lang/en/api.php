@@ -19,5 +19,19 @@ return [
     'expired_password_reset_token' => 'The password reset token has expired',
     'user_password_changed_successfully' => 'The user password has been changed successfully!',
     'user_not_registered' => 'User is not registered',
-    'user_registered_successfully' => 'New user registered successfully'
+    'user_registered_successfully' => 'New user registered successfully',
+    'attempt_not_found' => 'Attempt with id = :attemptId does not exist',
+    'attempt_does_not_belong_to_auth_user' => 'Attempt with id = :attemptId does not belong to the currently authenticated user',
+    'attempt_not_completed' => 'Attempt with id = :attemptId is not completed',
+    'user_answers_for_attempt' => 'User answers to test questions in attempt with id = :attemptId',
+    'table_column_data' => 'Column data in table :nameTable',
+    'table_not_found' => 'Table with name :nameTable does not exist',
+    'deck_data_on_page' => 'Deck data on page :numberCurrentPage',
+    'deck_not_found' => 'Deck with id = :id not found',
+    'user_not_deck_owner' => 'The currently authenticated user is not the author of the deck and therefore is not allowed to delete it',
+    'deck_deleted_permanently' => 'Deck with id = :id has been permanently deleted successfully',
+    'deck_soft_deleted' => 'Deck with id = :id has been soft deleted successfully',
+    'deck_is_premium_access_denied' => 'Deck with id = :id is premium. Viewing it is not allowed for users without an active premium status',
+    'deck_found' => 'Deck with id = :id found',
+
 ];

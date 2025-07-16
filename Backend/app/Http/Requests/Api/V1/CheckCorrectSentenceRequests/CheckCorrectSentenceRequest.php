@@ -29,10 +29,10 @@ class CheckCorrectSentenceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'language.required' => 'Поле "Language" обязательно для заполнения.',
-            'language.string' => 'Поле "Language" должно быть строкой.',
-            'text.required' => 'Поле "Text" обязательно для заполнения.',
-            'text.string' => 'Поле "Text" должно быть строкой.',
+            'language.required' => __('validation.language_required'),
+            'language.string' => __('validation.language_string'),
+            'text.required' => __('validation.text_required'),
+            'text.string' => __('validation.text_string'),
         ];
     }
 }

@@ -26,27 +26,27 @@ class TariffController extends Controller
         if($authUserInfo->currency_id === null)
         {
             $data = $this->tariffRepository->getAllActiveTariffs();
-            return ApiResponse::success('Все данные о тарифах', (object)['items'=> $data]);
+            return ApiResponse::success(__('api.all_tariff_data'), (object)['items'=> $data]);
         }
         $data = $this->tariffRepository->getActiveTariffsForUserCurrency($authUserInfo->currency_id);
-        return ApiResponse::success('Все данные о тарифах', (object)['items'=> TariffResource::collection($data)]);
+        return ApiResponse::success(__('api.all_tariff_data_for_user_currency'), (object)['items'=> TariffResource::collection($data)]);
     }
     public function addTariff(AddingNewTariffRequest $request)
     {
         $newTariff = $this->tariffRepository->saveNewTariff($request->name, $request->days);
         if($newTariff === null)
         {
-            return ApiResponse::error('Не удалось создать тариф', null, 500);
+            return ApiResponse::error(__('api.tariff_creation_failed'), null, 500);
         }
-        return ApiResponse::success('Новый тариф успешно создан');
+        return ApiResponse::success(__('api.tariff_created_successfully'));
     }
     public function changeTariffStatus($id)
     {
         if(!$this->tariffRepository->isExistTariffById($id))
         {
-            return ApiResponse::error("Отсутствует тариф с id = $id", null, 404);
+            return ApiResponse::error(__('api.tariff_not_found', ['id'=>$id]), null, 404);
         }
         $this->tariffRepository->changeStatus($id);
-        return ApiResponse::success("Состояние тарифа было изменено");
+        return ApiResponse::success(__('api.tariff_status_changed', ['id'=>$id]));
     }
 }

@@ -28,11 +28,11 @@ class SendResetLinkRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Поле Email обязательно для заполнения.',
-            'email.string' => 'Email должен быть строкой.',
-            'email.email' => 'Введите корректный Email.',
-            'email.max' => 'Email не должен превышать 255 символов.',
-            'email.exists' => 'Пользователь с заданным Email - адресом не найден.'
+            'email.required' => __('validation.email_required'),
+            'email.string' => __('validation.email_string'),
+            'email.email' => __('validation.email_email'),
+            'email.max' => __('validation.email_max'),
+            'email.exists' => __('validation.email_exists'),
         ];
     }
 

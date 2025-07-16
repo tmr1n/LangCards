@@ -30,17 +30,18 @@ class ResetPasswordRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Поле Email обязательно для заполнения.',
-            'email.string' => 'Email должен быть строкой.',
-            'email.email' => 'Введите корректный Email.',
-            'email.max' => 'Email не должен превышать 255 символов.',
-            'email.exists' => 'Запрос на изменение пароля для заданного email - адреса не был осуществлен.',
-            'password.required' => 'Поле пароля обязательно для заполнения',
-            'password.confirmed' => 'Пароли не совпадают',
-            'password.min'=>'Пароль должен содержать минимум 8 символов',
-            'password.regex' => 'Пароль должен содержать минимум 1 заглавную букву, 1 строчную букву, 1 цифру и 1 специальный символ',
-            'token.required' => "Поле 'токен' является обязательным",
-            'token.string' => "Поле 'токен' должен быть строкой"
+            'email.required' => __('validation.email_required'),
+            'email.string' =>  __('validation.email_string'),
+            'email.email' => __('validation.email_email'),
+            'email.max' => __('validation.email_max'),
+            'email.exists' => __('validation.email_exists'),
+            'password.required' => __('validation.password_required'),
+            'password.string' => __('validation.password_string'),
+            'password.confirmed' => __('validation.password_confirmed'),
+            'password.min'=>__('validation.password_min'),
+            'password.regex' => __('validation.password_regex'),
+            'token.required' => __('validation.token_required'),
+            'token.string' => __('validation.token_string')
         ];
     }
 }

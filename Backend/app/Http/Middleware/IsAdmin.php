@@ -19,7 +19,7 @@ class IsAdmin
     {
         $currentUser = $request->user();
         if ($currentUser->type_user !== TypeUsers::Admin->value) {
-            return ApiResponse::error('Пользователь не является администратором',null,403);
+            return ApiResponse::error(__('api.user_not_admin'),null,403);
         }
         return $next($request);
     }

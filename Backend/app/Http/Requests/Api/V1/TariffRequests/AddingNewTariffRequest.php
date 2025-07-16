@@ -32,14 +32,14 @@ class AddingNewTariffRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Поле "Название" обязательно для заполнения.',
-            'name.string' => 'Поле "Название" должно быть строкой.',
-            'name.max' => 'Поле "Название" не должно превышать 255 символов.',
+            'name.required' => __('validation.name_required'),
+            'name.string' => __('validation.name_string'),
+            'name.max' => __('validation.name_max'),
 
-            'days.required' => 'Поле "Количество дней" обязательно для заполнения.',
-            'days.integer' => 'Поле "Количество дней" должно быть целым числом.',
-            'days.min' => 'Поле "Количество дней" должно быть больше нуля.',
-            'days.unique' => 'Тариф с таким количеством дней уже существует.'
+            'days.required' => __('validation.days_required'),
+            'days.integer' => __('validation.days_integer'),
+            'days.min' => __('validation.days_min'),
+            'days.unique' => __('validation.days_unique')
         ];
     }
 }
