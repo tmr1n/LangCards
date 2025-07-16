@@ -18,7 +18,6 @@ class SetApiLocale
     {
         $acceptedLanguages = ['en', 'ru'];
         $locale = $request->header('Accept-Language');
-
         if (in_array($locale, $acceptedLanguages)) {
             App::setLocale($locale);
         } else {

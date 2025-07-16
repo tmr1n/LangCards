@@ -18,6 +18,6 @@ class LanguageController extends Controller
 
     public function getLanguages()
     {
-        return ApiResponse::success('Все данные о языках в системе', (object)['items'=>LanguageResource::collection($this->languageRepository->getAllLanguages())]);
+        return ApiResponse::success(__('api.all_language_data'), (object)['items'=>LanguageResource::collection($this->languageRepository->getAllLanguages())]);
     }
 }

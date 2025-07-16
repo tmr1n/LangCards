@@ -6,7 +6,6 @@ use App\Enums\TypeRequestApi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\AuthRequests\RegistrationRequest;
 use App\Http\Responses\ApiResponse;
-use App\Repositories\CurrencyRepositories\CurrencyRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use App\Services\ApiServices\ApiService;

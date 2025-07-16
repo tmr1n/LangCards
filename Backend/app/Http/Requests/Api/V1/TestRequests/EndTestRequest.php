@@ -32,19 +32,15 @@ class EndTestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'attemptId.required' => 'Поле attemptId обязательно.',
-            'attemptId.int' => 'Поле attemptId должно быть целым числом.',
-
-            'automatic.required' => 'Поле automatic обязательно.',
-            'automatic.boolean' => 'Поле automatic должно быть логическим значением (true или false).',
-
-            'answers.required' => 'Поле answers обязательно.',
-            'answers.array' => 'Поле answers должно быть массивом.',
-
-            'answers.*.question_id.required' => 'Каждый ответ должен содержать поле question_id.',
-            'answers.*.question_id.int' => 'Поле question_id в каждом ответе должно быть целым числом.',
-
-            'answers.*.answer_id.int' => 'Поле answer_id в каждом ответе должно быть целым числом.',
+            'attemptId.required' => __('validation.attemptId_required'),
+            'attemptId.int' => __('validation.attemptId_int'),
+            'automatic.required' => __('validation.automatic_required'),
+            'automatic.boolean' => __('validation.automatic_boolean'),
+            'answers.required' => __('validation.answers_required'),
+            'answers.array' => __('validation.answers_array'),
+            'answers.*.question_id.required' => __('validation.answers_item_question_id_required'),
+            'answers.*.question_id.int' => __('validation.answers_item_question_id_int'),
+            'answers.*.answer_id.int' => __('validation.answers_item_answer_id_int'),
         ];
     }
 }

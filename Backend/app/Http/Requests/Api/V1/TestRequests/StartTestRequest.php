@@ -28,8 +28,8 @@ class StartTestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'testId.required' => 'Поле testId обязательно для заполнения.',
-            'testId.int' => 'Поле testId должно быть типа int (целое число).'
+            'testId.required' => __('validation.testId_required'),
+            'testId.int' => __('validation.testId_int'),
         ];
     }
 }

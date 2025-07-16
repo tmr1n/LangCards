@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\UserTestAnswerResources\UserTestAnswerResource;
 use App\Http\Resources\v1\UserTestResultResources\UserTestResultResource;
 use App\Http\Responses\ApiResponse;
-use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
 use App\Repositories\UserTestAnswerRepositories\UserTestAnswerRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 
@@ -27,19 +26,19 @@ class AnswerController extends Controller
         $attemptInfo = $this->userTestResultRepository->getUserTestResultById($attemptId);
         if($attemptInfo === null)
         {
-            return ApiResponse::error("Попытка c id = $attemptId не существует", null, 404);
+            return ApiResponse::error(__('api.attempt_not_found', ['attemptId'=>$attemptId]), null, 404);
         }
         if(auth()->id() !== $attemptInfo->user_id)
         {
-            return ApiResponse::error("Попытка c id = $attemptId не принадлежит текущему авторизованному пользователю", null, 403);
+            return ApiResponse::error(__('api.attempt_does_not_belong_to_auth_user', ['attemptId'=>$attemptId]), null, 403);
         }
         if($attemptInfo->finish_time === null)
         {
-            return ApiResponse::error("Попытка c id = $attemptId не является завершенной", null, 422);
+            return ApiResponse::error(__('api.attempt_not_completed', ['attemptId'=>$attemptId]), null, 422);
         }
         $maxAttempts = $attemptInfo->test->count_attempts;
         $canAddCorrectAnswers = $maxAttempts !== null && $maxAttempts === $this->userTestResultRepository->getCountAttemptsOfTestByUserId($attemptInfo->test_id, auth()->id());
         $answers = $this->userTestAnswerRepository->getAnswersForAttemptId($attemptId, $canAddCorrectAnswers);
-        return ApiResponse::success("Ответы пользователя на вопросы теста в попытке с id = $attemptId",(object)['attempt'=>new UserTestResultResource($attemptInfo), 'questionsWithAnswers'=>UserTestAnswerResource::collection($answers)]);
+        return ApiResponse::success(__('api.user_answers_for_attempt', ['attemptId'=>$attemptId]),(object)['attempt'=>new UserTestResultResource($attemptInfo), 'questionsWithAnswers'=>UserTestAnswerResource::collection($answers)]);
     }
 }

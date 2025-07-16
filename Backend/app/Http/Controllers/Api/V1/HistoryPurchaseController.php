@@ -25,7 +25,7 @@ class HistoryPurchaseController extends Controller
         $countOnPage = (int)$request->input('countOnPage', config('app.default_count_on_page'));
         $numberCurrentPage = (int)$request->input('page', config('app.default_page'));
         $data = $this->historyPurchaseRepository->getHistoryPurchasesOfAuthUser($paginator, $authUserId, $countOnPage, $numberCurrentPage);
-        return ApiResponse::success("Получена история покупок в приложении для авторизованного пользователя с id = $authUserId", (object)['items'=>HistoryPurchaseResource::collection($data['items']),
+        return ApiResponse::success(__('api.purchase_history_retrieved', ['authUserId'=>$authUserId]), (object)['items'=>HistoryPurchaseResource::collection($data['items']),
             'pagination' => $data['pagination']]);
     }
 }

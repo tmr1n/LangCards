@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\DeckResources\DeckResource;
 use App\Http\Resources\v1\UserTestResultResources\UserTestResultResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
@@ -23,7 +22,7 @@ class HistoryAttemptsTestController extends Controller
         $countOnPage = (int)$request->input('countOnPage', config('app.default_count_on_page'));
         $numberCurrentPage = (int)$request->input('page', config('app.default_page'));
         $data = $this->userTestResultRepository->getResultAttemptsOfCurrentUserWithPagination($paginator, auth()->id(), $numberCurrentPage, $countOnPage);
-        return ApiResponse::success("Данные о попытках прохождения тестов на странице $numberCurrentPage", (object)['items'=>UserTestResultResource::collection($data['items']),
+        return ApiResponse::success(__('api.attempts_data_on_page', ['numberCurrentPage'=>$numberCurrentPage]), (object)['items'=>UserTestResultResource::collection($data['items']),
             'pagination' => $data['pagination']]);
     }
 }

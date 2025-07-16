@@ -17,7 +17,7 @@ class SpellingController extends Controller
         try {
             $spellCheckerService = new SpellCheckerService();
             $data = $spellCheckerService->checkSentence($request->language, $request->text);
-            return ApiResponse::success('Результат проверки правописания с помощью Hunspell',(object)['items'=>$data]);
+            return ApiResponse::success(__('api.hunspell_spelling_check_result'),(object)['items'=>$data]);
         }
         catch (HunspellNotInstallException|UnsupportedDictionaryLanguageException|ProcessHunspellCheckException $exception)
         {

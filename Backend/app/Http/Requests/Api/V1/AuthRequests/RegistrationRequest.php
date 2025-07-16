@@ -33,13 +33,15 @@ class RegistrationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Поле имени обязательно для заполнения',
-            'email.required' => 'Поле email обязательно для заполнения',
-            'email.unique' => 'Пользователь с таким email уже существует',
-            'password.required' => 'Поле пароля обязательно для заполнения',
-            'password.confirmed' => 'Пароли не совпадают',
-            'password.min'=>'Пароль должен содержать минимум 8 символов',
-            'password.regex' => 'Пароль должен содержать минимум 1 заглавную букву, 1 строчную букву, 1 цифру и 1 специальный символ',
+            'name.required' => __('validation.required'),
+            'name.string' => __('validation.name_string'),
+            'name.max' => __('validation.name_max'),
+            'email.required' => __('validation.email_required'),
+            'email.unique' => __('validation.email_unique'),
+            'password.required' => __('validation.password_required'),
+            'password.confirmed' => __('validation.password_confirmed'),
+            'password.min'=>__('validation.password_min'),
+            'password.regex' => __('validation.password_regex'),
         ];
     }
 }
