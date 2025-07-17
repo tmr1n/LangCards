@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             QuestionAnswerSeeder::class,
             UserTestResultSeeder::class,
             UserTestAnswerSeeder::class,
-            ApiLimitSeeder::class
+            ApiLimitSeeder::class,
+            PromocodeSeeder::class,
             ];
         foreach ($seeders as $seeder) {
             $this->call($seeder);

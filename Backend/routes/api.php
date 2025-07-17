@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\FilterDataController;
 use App\Http\Controllers\Api\V1\HistoryAttemptsTestController;
 use App\Http\Controllers\Api\V1\HistoryPurchaseController;
 use App\Http\Controllers\Api\V1\LanguageController;
+use App\Http\Controllers\Api\V1\PromocodeController;
 use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\StatsController;
 use App\Http\Controllers\Api\V1\TariffController;
@@ -78,6 +79,10 @@ Route::prefix('v1')->group(callback: function () {
             Route::prefix('stats')->group(function () {
                 Route::get('/countUsersByMonths', [StatsController::class, 'getCountUsersByMonths'])->name('getCountUsersByMonths')->middleware('isAdmin');
                 Route::get('/countDecksByTopic', [StatsController::class, 'getTopicsWithCountDecksAndPercentage'])->name('getTopicsWithCountDecksAndPercentage');
+            });
+            Route::prefix('promocodes')->group(function () {
+               Route::post('/', [PromocodeController::class, 'createPromocodes'])->name('createPromocodes')->middleware('isAdmin');
+               Route::post('/activate', [PromocodeController::class, 'activatePromocode'])->name('activatePromocode');
             });
             Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
         });
