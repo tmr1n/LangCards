@@ -17,6 +17,7 @@ return new class extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('deck_id')->references('id')->on('decks')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->unique(['topic_id', 'deck_id']);
             $table->timestamps();
         });
     }

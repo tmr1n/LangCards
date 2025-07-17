@@ -2,6 +2,7 @@
 
 namespace App\Repositories\StatsRepositories;
 
+use App\Models\Topic;
 use App\Models\User;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
@@ -37,5 +38,25 @@ class StatsRepository implements StatsRepositoryInterface
                 'count' => $count
             ];
         })->values();
+    }
+
+    public function getTopicsWithCountDecksAndPercentage()
+    {
+        $topics = Topic::withCount([
+            'decks' => function ($query) {
+                $query->whereNull('deleted_at');
+            }
+        ])->get();
+
+        $totalDecks = $topics->sum('decks_count');
+        return $topics->map(function ($topic) use ($totalDecks) {
+            $percentage = $totalDecks > 0 ? round(($topic->decks_count / $totalDecks) * 100, 2) : 0;
+            return [
+                'id' => $topic->id,
+                'name' => $topic->name,
+                'decks_count' => $topic->decks_count,
+                'percentage' => $percentage
+            ];
+        });
     }
 }
