@@ -25,6 +25,8 @@ use App\Repositories\LoginRepositories\LoginRepository;
 use App\Repositories\LoginRepositories\LoginRepositoryInterface;
 use App\Repositories\ForgotPasswordRepositories\ForgotForgotPasswordRepository;
 use App\Repositories\ForgotPasswordRepositories\ForgotPasswordRepositoryInterface;
+use App\Repositories\PromocodeRepositories\PromocodeRepository;
+use App\Repositories\PromocodeRepositories\PromocodeRepositoryInterface;
 use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepository;
 use App\Repositories\QuestionAnswerRepository\QuestionAnswerRepositoryInterface;
 use App\Repositories\QuestionRepositories\QuestionRepository;
@@ -82,6 +84,7 @@ class AppServiceProvider extends ServiceProvider
             UserTestResultRepositoryInterface::class => UserTestResultRepository::class,
             UserTestAnswerRepositoryInterface::class => UserTestAnswerRepository::class,
             StatsRepositoryInterface::class => StatsRepository::class,
+            PromocodeRepositoryInterface::class => PromocodeRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);

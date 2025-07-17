@@ -83,4 +83,9 @@ class TariffRepository implements TariffRepositoryInterface
         $currentTariff->is_active = !$currentTariff->is_active;
         $currentTariff->save();
     }
+
+    public function getAllIdActiveTariffs()
+    {
+        return $this->model->where('is_active','=', true)->pluck('id')->toArray();
+    }
 }

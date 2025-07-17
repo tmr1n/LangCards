@@ -6,7 +6,7 @@ use App\Models\Tariff;
 
 interface TariffRepositoryInterface
 {
-
+    public function getAllIdActiveTariffs();
     public function getAllIdTariffs();
     public function getActiveTariffsForUserCurrency(int $userCurrencyId);
     public function getAllActiveTariffs();

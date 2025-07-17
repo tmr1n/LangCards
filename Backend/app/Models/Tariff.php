@@ -18,6 +18,10 @@ class Tariff extends Model implements ColumnLabelsableInterface
     {
         return $this->hasMany(Cost::class, 'tariff_id');
     }
+    public function promocodes(): HasMany
+    {
+        return $this->hasMany(Tariff::class, 'tariff_id');
+    }
 
     protected function casts(): array
     {
