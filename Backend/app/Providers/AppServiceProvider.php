@@ -31,6 +31,8 @@ use App\Repositories\QuestionRepositories\QuestionRepository;
 use App\Repositories\QuestionRepositories\QuestionRepositoryInterface;
 use App\Repositories\RegistrationRepositories\RegistrationRepository;
 use App\Repositories\RegistrationRepositories\RegistrationRepositoryInterface;
+use App\Repositories\StatsRepositories\StatsRepository;
+use App\Repositories\StatsRepositories\StatsRepositoryInterface;
 use App\Repositories\TariffRepositories\TariffRepository;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
 use App\Repositories\TestRepositories\TestRepository;
@@ -79,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
             QuestionAnswerRepositoryInterface::class => QuestionAnswerRepository::class,
             UserTestResultRepositoryInterface::class => UserTestResultRepository::class,
             UserTestAnswerRepositoryInterface::class => UserTestAnswerRepository::class,
+            StatsRepositoryInterface::class => StatsRepository::class,
         ];
         foreach ($repositories as $interface => $model) {
             $this->app->bind($interface, $model);
