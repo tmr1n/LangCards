@@ -16,7 +16,7 @@ class SetApiLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $acceptedLanguages = ['en', 'ru'];
+        $acceptedLanguages = ['ar', 'de', 'en','es','fr','ja','pt', 'ru', 'uk', 'zh'];
         $locale = $request->header('Accept-Language');
         if (in_array($locale, $acceptedLanguages)) {
             App::setLocale($locale);

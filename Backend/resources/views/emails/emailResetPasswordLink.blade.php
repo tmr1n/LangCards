@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Password Reset</title>
+    <title>{{$title}}</title>
 </head>
 <body>
-<h2>Password Reset Request</h2>
-<p>Click the link below to reset your password:</p>
-<a href="{{ $url }}">Reset Password</a>
-<p>This link will expire in 60 minutes.</p>
+<h2>{{$password_reset_request}}</h2>
+<p>{{$click_link_to_reset_password}}</p>
+<a href="{{ $url }}">{{$reset_password}}</a>
+<p>{{$link_expiration_notice}}</p>
 </body>
 </html>
