@@ -22,4 +22,9 @@ class StatsController extends Controller
 
         return ApiResponse::success("Количество пользователей, зарегистрировавшихся в системе по месяцам", (object)['countUsersByMonths' => $result]);
     }
+    public function getTopicsWithCountDecksAndPercentage()
+    {
+        $result = $this->statsRepository->getTopicsWithCountDecksAndPercentage();
+        return ApiResponse::success('Количество колод по топикам с процентным соотношением', (object)['topicsWithCountDecksAndPercentage' => $result]);
+    }
 }

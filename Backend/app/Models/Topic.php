@@ -17,6 +17,7 @@ class Topic extends Model implements ColumnLabelsableInterface
     {
         return $this->belongsToMany(Deck::class, 'deck_topics', 'topic_id', 'deck_id');
     }
+
     protected function casts(): array
     {
         return [

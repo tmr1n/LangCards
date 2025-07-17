@@ -77,6 +77,7 @@ Route::prefix('v1')->group(callback: function () {
             });
             Route::prefix('stats')->group(function () {
                 Route::get('/countUsersByMonths', [StatsController::class, 'getCountUsersByMonths'])->name('getCountUsersByMonths')->middleware('isAdmin');
+                Route::get('/countDecksByTopic', [StatsController::class, 'getTopicsWithCountDecksAndPercentage'])->name('getTopicsWithCountDecksAndPercentage');
             });
             Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
         });
