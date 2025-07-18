@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Enums\TypePdfPromocodes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\PromocodeRequests\ActivatePromocodeRequest;
 use App\Http\Requests\Api\V1\PromocodeRequests\CreatePromocodeRequest;
@@ -10,6 +11,7 @@ use App\Repositories\PromocodeRepositories\PromocodeRepositoryInterface;
 use App\Repositories\TariffRepositories\TariffRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use App\Services\PromocodeGeneratorService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
 
@@ -74,5 +76,18 @@ class PromocodeController extends Controller
         $this->promocodeRepository->deactivatePromocodeByPromocode($promocode);
         $userInfo = $this->userRepository->getInfoUserById($user->id);
         return ApiResponse::success("Обновлена дата окончания VIP - статуса. Дата окончания VIP - статуса: $userInfo->vip_status_time_end");
+    }
+    public function downloadPromocodes(string $type, ?int $tariff_id = null)
+    {
+        $tariff_id = ($tariff_id !== null && $this->tariffRepository->isExistTariffById($tariff_id))
+            ? $tariff_id
+            : null;
+        $promocodes = $this->promocodeRepository->getActivePromocodesById($tariff_id);
+        $data = ['promocodes' => $promocodes];
+        $pdf = PDF::loadView(match($type) {
+            TypePdfPromocodes::table->value => 'pdf.promocodes',
+            default => 'pdf.promocodes_cards'
+        }, $data);
+        return $pdf->download('promo-codes.pdf');
     }
 }
