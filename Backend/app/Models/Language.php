@@ -31,12 +31,14 @@ class Language extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('name', 'Название языка'),
-            new ColumnLabel('code', 'Код языка'),
-            new ColumnLabel('flag_url', 'Ссылка на флаг'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/language.id')),
+            new ColumnLabel('name', __('model_attributes/language.name')),
+            new ColumnLabel('native_name',__('model_attributes/language.native_name')),
+            new ColumnLabel('code', __('model_attributes/language.code')),
+            new ColumnLabel('flag_url', __('model_attributes/language.flag_url')),
+            new ColumnLabel( 'locale',__('model_attributes/language.locale')),
+            new ColumnLabel('created_at', __('model_attributes/language.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/language.updated_at')),
         ];
     }
 }

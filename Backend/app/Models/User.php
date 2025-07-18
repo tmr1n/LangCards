@@ -90,19 +90,19 @@ class User extends Authenticatable implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('name', 'Имя'),
-            new ColumnLabel('email', 'Электронная почта'),
-            new ColumnLabel('avatar_url', 'Аватар'),
-            new ColumnLabel('email_verified_at', 'Дата подтверждения почты'),
-            new ColumnLabel('password', 'Пароль'),
-            new ColumnLabel('type_user', 'Тип пользователя'),
-            new ColumnLabel('currency_id', 'Валюта'),
-            new ColumnLabel('timezone_id', 'Часовой пояс'),
-            new ColumnLabel('vip_status_time_end', 'Окончание VIP-статуса'),
-            new ColumnLabel('remember_token', 'Токен запоминания'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/user.id')),
+            new ColumnLabel('name', __('model_attributes/user.name')),
+            new ColumnLabel('email', __('model_attributes/user.email')),
+            new ColumnLabel('avatar_url', __('model_attributes/user.avatar_url')),
+            new ColumnLabel('email_verified_at', __('model_attributes/user.email_verified_at')),
+            new ColumnLabel('password', __('model_attributes/user.password')),
+            new ColumnLabel('type_user', __('model_attributes/user.type_user')),
+            new ColumnLabel('currency_id', __('model_attributes/user.currency_id')),
+            new ColumnLabel('timezone_id', __('model_attributes/user.timezone_id')),
+            new ColumnLabel('vip_status_time_end', __('model_attributes/user.vip_status_time_end')),
+            new ColumnLabel('remember_token', __('model_attributes/user.remember_token')),
+            new ColumnLabel('created_at', __('model_attributes/user.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/user.updated_at')),
         ];
     }
 }

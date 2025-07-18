@@ -22,11 +22,11 @@ class DeckTopic extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('topic_id', 'Тема'),
-            new ColumnLabel('deck_id', 'Колода'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/deck_topic.id')),
+            new ColumnLabel('topic_id', __('model_attributes/deck_topic.topic_id')),
+            new ColumnLabel('deck_id', __('model_attributes/deck_topic.deck_id')),
+            new ColumnLabel('created_at', __('model_attributes/deck_topic.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/deck_topic.updated_at')),
         ];
     }
 }

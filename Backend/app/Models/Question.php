@@ -46,13 +46,13 @@ class Question extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('text', 'Текст вопроса'),
-            new ColumnLabel('type', 'Тип вопроса'),
-            new ColumnLabel('card_id', 'Карточка'),
-            new ColumnLabel('test_id', 'Тест'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/question.id')),
+            new ColumnLabel('text', __('model_attributes/question.text')),
+            new ColumnLabel('type', __('model_attributes/question.type')),
+            new ColumnLabel('card_id', __('model_attributes/question.card_id')),
+            new ColumnLabel('test_id', __('model_attributes/question.test_id')),
+            new ColumnLabel('created_at', __('model_attributes/question.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/question.updated_at')),
         ];
     }
 }

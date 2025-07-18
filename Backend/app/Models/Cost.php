@@ -35,12 +35,12 @@ class Cost extends Model implements  ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('cost', 'Стоимость'),
-            new ColumnLabel('currency_id', 'Валюта'),
-            new ColumnLabel('tariff_id', 'Тариф'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/card.id')),
+            new ColumnLabel('cost', __('model_attributes/card.cost')),
+            new ColumnLabel('currency_id', __('model_attributes/card.currency_id')),
+            new ColumnLabel('tariff_id', __('model_attributes/card.tariff_id')),
+            new ColumnLabel('created_at', __('model_attributes/card.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/card.updated_at')),
         ];
     }
 }

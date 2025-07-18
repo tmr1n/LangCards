@@ -39,15 +39,15 @@ class UserTestResult extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('score', 'Баллы'),
-            new ColumnLabel('start_time', 'Время начала'),
-            new ColumnLabel('finish_time', 'Время завершения'),
-            new ColumnLabel('user_id', 'Пользователь'),
-            new ColumnLabel('test_id', 'Тест'),
-            new ColumnLabel('number_attempt', 'Номер попытки'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/user_test_result.id')),
+            new ColumnLabel('score', __('model_attributes/user_test_result.score')),
+            new ColumnLabel('start_time', __('model_attributes/user_test_result.start_time')),
+            new ColumnLabel('finish_time', __('model_attributes/user_test_result.finish_time')),
+            new ColumnLabel('user_id', __('model_attributes/user_test_result.user_id')),
+            new ColumnLabel('test_id', __('model_attributes/user_test_result.test_id')),
+            new ColumnLabel('number_attempt', __('model_attributes/user_test_result.number_attempt')),
+            new ColumnLabel('created_at', __('model_attributes/user_test_result.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/user_test_result.updated_at')),
         ];
     }
 }
