@@ -3,6 +3,7 @@
 namespace App\Repositories\PromocodeRepositories;
 
 use App\Models\Promocode;
+use Illuminate\Database\Eloquent\Collection;
 
 class PromocodeRepository implements PromocodeRepositoryInterface
 {
@@ -42,5 +43,22 @@ class PromocodeRepository implements PromocodeRepositoryInterface
     {
         $promocode->active = false;
         $promocode->save();
+    }
+
+    public function getActivePromocodesById(?int $tariff_id): Collection
+    {
+        $query = $this->model->with(['tariff' => function ($query) {
+            $query->select(['id', 'name', 'days']);
+        }])
+            ->where('active', true)
+            ->select(['code', 'tariff_id']);
+
+        if ($tariff_id !== null) {
+            $query->whereHas('tariff', function ($query) use ($tariff_id) {
+                $query->where('id', $tariff_id);
+            });
+        }
+
+        return $query->get();
     }
 }

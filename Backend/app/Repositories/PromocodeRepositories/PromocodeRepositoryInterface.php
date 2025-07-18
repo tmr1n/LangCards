@@ -6,6 +6,7 @@ use App\Models\Promocode;
 
 interface PromocodeRepositoryInterface
 {
+    public function getActivePromocodesById(?int $tariff_id);
     public function isExistPromocode(string $code): bool;
 
     public function getPromocodeByCode(string $code): ?Promocode;
