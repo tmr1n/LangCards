@@ -58,20 +58,8 @@ class PromocodeController extends Controller
             return ApiResponse::error('Предоставленный промокод уже был активирован ранее', null, 409);
         }
         $user = auth()->user();
-        if($user->vip_status_time_end === null){
-            $dateEndOfVipStatus = Carbon::now()->addDays($promocode->tariff->days);
-        }
-        else{
-            $currentDateEndOfVipStatus = Carbon::parse($user->vip_status_time_end);
-            if($currentDateEndOfVipStatus->isPast())
-            {
-                $dateEndOfVipStatus = Carbon::now()->addDays($promocode->tariff->days);
-            }
-            else
-            {
-                $dateEndOfVipStatus = $currentDateEndOfVipStatus->addDays($promocode->tariff->days);
-            }
-        }
+        $currentEndDate = $user->vip_status_time_end ? Carbon::parse($user->vip_status_time_end) : Carbon::now();
+        $dateEndOfVipStatus = $currentEndDate->max(Carbon::now())->addDays($promocode->tariff->days);
         $this->userRepository->updateEndDateOfVipStatusByIdUser($user->id, $dateEndOfVipStatus);
         $this->promocodeRepository->deactivatePromocodeByPromocode($promocode);
         $userInfo = $this->userRepository->getInfoUserById($user->id);
@@ -83,11 +71,10 @@ class PromocodeController extends Controller
             ? $tariff_id
             : null;
         $promocodes = $this->promocodeRepository->getActivePromocodesById($tariff_id);
-        $data = ['promocodes' => $promocodes];
         $pdf = PDF::loadView(match($type) {
             TypePdfPromocodes::table->value => 'pdf.promocodes',
             default => 'pdf.promocodes_cards'
-        }, $data);
+        }, ['promocodes' => $promocodes]);
         return $pdf->download('promo-codes.pdf');
     }
 }

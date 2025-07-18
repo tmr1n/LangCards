@@ -83,13 +83,10 @@ class UserTestResultController extends Controller
         {
             return ApiResponse::error(__('api.attempt_already_completed',['attemptId'=>$request->attemptId]), null, 403);
         }
-        if($request->automatic === false) //запрос был инициализирован пользователем
-        {
-            $countSeconds = $infoAttempt->test->time_seconds;
-            if (!is_null($countSeconds)) {
-                if (Carbon::parse($infoAttempt->start_time)->addSeconds($countSeconds)->isPast()) {
-                    return ApiResponse::error(__('api.test_time_expired', ['testId'=>$infoAttempt->test->id]), null, 403);
-                }
+        if (!$request->automatic && $infoAttempt->test->time_seconds) {
+            $endTime = Carbon::parse($infoAttempt->start_time)->addSeconds($infoAttempt->test->time_seconds);
+            if ($endTime->isPast()) {
+                return ApiResponse::error(__('api.test_time_expired', ['testId' => $infoAttempt->test->id]), null, 403);
             }
         }
         $countCorrectAnswers = 0;
