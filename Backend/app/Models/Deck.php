@@ -60,14 +60,14 @@ class Deck extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('name', 'Название колоды'),
-            new ColumnLabel('original_language_id', 'Исходный язык'),
-            new ColumnLabel('target_language_id', 'Целевой язык'),
-            new ColumnLabel('user_id', 'Пользователь'),
-            new ColumnLabel('is_premium', 'Премиум доступ'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/decks.id')),
+            new ColumnLabel('name', __('model_attributes/decks.name')),
+            new ColumnLabel('original_language_id', __('model_attributes/decks.original_language_id')),
+            new ColumnLabel('target_language_id', __('model_attributes/decks.target_language_id')),
+            new ColumnLabel('user_id', __('model_attributes/decks.user_id')),
+            new ColumnLabel('is_premium', __('model_attributes/decks.is_premium')),
+            new ColumnLabel('created_at', __('model_attributes/decks.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/decks.updated_at')),
         ];
     }
 }

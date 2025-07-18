@@ -31,13 +31,13 @@ class HistoryPurchase extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('date_purchase', 'Дата покупки'),
-            new ColumnLabel('date_end', 'Дата окончания'),
-            new ColumnLabel('user_id', 'Пользователь'),
-            new ColumnLabel('cost_id', 'Стоимость'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/history_purchase.id')),
+            new ColumnLabel('date_purchase', __('model_attributes/history_purchase.date_purchase')),
+            new ColumnLabel('date_end', __('model_attributes/history_purchase.date_end')),
+            new ColumnLabel('user_id', __('model_attributes/history_purchase.user_id')),
+            new ColumnLabel('cost_id', __('model_attributes/history_purchase.cost_id')),
+            new ColumnLabel('created_at', __('model_attributes/history_purchase.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/history_purchase.updated_at')),
         ];
     }
 }

@@ -16,11 +16,11 @@ class ApiLimit extends Model implements  ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id','Идентификатор'),
-            new ColumnLabel('day','Дата (день)'),
-            new ColumnLabel('request_count','Количество запросов'),
-            new ColumnLabel('created_at','Дата создания записи'),
-            new ColumnLabel('updated_at','Дата обновления записи'),
+            new ColumnLabel('id',__('model_attributes/api_limit.id')),
+            new ColumnLabel('day',__('model_attributes/api_limit.day')),
+            new ColumnLabel('request_count',__('model_attributes/api_limit.request_count')),
+            new ColumnLabel('created_at',__('model_attributes/api_limit.created_at')),
+            new ColumnLabel('updated_at',__('model_attributes/api_limit.updated_at')),
         ];
     }
 }

@@ -32,12 +32,12 @@ class Currency extends Model implements  ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('name', 'Название валюты'),
-            new ColumnLabel('code', 'Код валюты (ISO 4217)'),
-            new ColumnLabel('symbol', 'Символ валюты'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/currency.id')),
+            new ColumnLabel('name', __('model_attributes/currency.name')),
+            new ColumnLabel('code', __('model_attributes/currency.code')),
+            new ColumnLabel('symbol', __('model_attributes/currency.symbol')),
+            new ColumnLabel('created_at', __('model_attributes/currency.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/currency.updated_at')),
         ];
     }
 }

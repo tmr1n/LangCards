@@ -36,13 +36,13 @@ class UserTestAnswer extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('user_test_result_id', 'Результат теста пользователя'),
-            new ColumnLabel('question_id', 'Вопрос'),
-            new ColumnLabel('answer_id', 'Ответ'),
-            new ColumnLabel('is_correct', 'Правильный ответ'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/user_test_answer.id')),
+            new ColumnLabel('user_test_result_id', __('model_attributes/user_test_answer.user_test_result_id')),
+            new ColumnLabel('question_id', __('model_attributes/user_test_answer.question_id')),
+            new ColumnLabel('answer_id', __('model_attributes/user_test_answer.answer_id')),
+            new ColumnLabel('is_correct', __('model_attributes/user_test_answer.is_correct')),
+            new ColumnLabel('created_at', __('model_attributes/user_test_answer.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/user_test_answer.updated_at')),
         ];
     }
 }

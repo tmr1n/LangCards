@@ -32,12 +32,12 @@ class QuestionAnswer extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('text_answer', 'Текст ответа'),
-            new ColumnLabel('question_id', 'Вопрос'),
-            new ColumnLabel('is_correct', 'Правильный ответ'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/question_answer.id')),
+            new ColumnLabel('text_answer', __('model_attributes/question_answer.text_answer')),
+            new ColumnLabel('question_id', __('model_attributes/question_answer.question_id')),
+            new ColumnLabel('is_correct', __('model_attributes/question_answer.is_correct')),
+            new ColumnLabel('created_at', __('model_attributes/question_answer.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/question_answer.updated_at')),
         ];
     }
 }

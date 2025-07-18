@@ -37,14 +37,14 @@ class Card extends Model implements  ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('word', 'Слово'),
-            new ColumnLabel('translate', 'Перевод'),
-            new ColumnLabel('image_url', 'Ссылка на изображение'),
-            new ColumnLabel('pronunciation_url', 'Ссылка на произношение'),
-            new ColumnLabel('deck_id', 'Колода'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/card.id')),
+            new ColumnLabel('word', __('model_attributes/card.word')),
+            new ColumnLabel('translate', __('model_attributes/card.translate')),
+            new ColumnLabel('image_url', __('model_attributes/card.image_url')),
+            new ColumnLabel('pronunciation_url', __('model_attributes/card.pronunciation_url')),
+            new ColumnLabel('deck_id', __('model_attributes/card.deck_id')),
+            new ColumnLabel('created_at', __('model_attributes/card.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/card.updated_at')),
         ];
     }
 }

@@ -25,11 +25,11 @@ class Timezone extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
          return [
-             new ColumnLabel('id', 'Идентификатор'),
-             new ColumnLabel('name', 'Название часового пояса'),
-             new ColumnLabel('offset_utc', 'Смещение UTC'),
-             new ColumnLabel('created_at', 'Дата создания'),
-             new ColumnLabel('updated_at', 'Дата обновления'),
+             new ColumnLabel('id', __('model_attributes/timezone.id')),
+             new ColumnLabel('name', __('model_attributes/timezone.name')),
+             new ColumnLabel('offset_utc', __('model_attributes/timezone.offset_utc')),
+             new ColumnLabel('created_at', __('model_attributes/timezone.created_at')),
+             new ColumnLabel('updated_at', __('model_attributes/timezone.updated_at')),
         ];
     }
 }

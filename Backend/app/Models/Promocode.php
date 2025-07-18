@@ -22,12 +22,12 @@ class Promocode extends Model implements ColumnLabelsableInterface
     public static function columnLabels(): array
     {
         return [
-            new ColumnLabel('id', 'Идентификатор'),
-            new ColumnLabel('code', 'Код'),
-            new ColumnLabel('active', 'Статус активации'),
-            new ColumnLabel('tariff_id', 'Тариф'),
-            new ColumnLabel('created_at', 'Дата создания'),
-            new ColumnLabel('updated_at', 'Дата обновления'),
+            new ColumnLabel('id', __('model_attributes/promocode.id')),
+            new ColumnLabel('code', __('model_attributes/promocode.code')),
+            new ColumnLabel('active', __('model_attributes/promocode.active')),
+            new ColumnLabel('tariff_id', __('model_attributes/promocode.tariff_id')),
+            new ColumnLabel('created_at', __('model_attributes/promocode.created_at')),
+            new ColumnLabel('updated_at', __('model_attributes/promocode.updated_at')),
         ];
     }
     protected function casts(): array
