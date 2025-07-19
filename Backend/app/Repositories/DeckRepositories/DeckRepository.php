@@ -16,7 +16,7 @@ class DeckRepository implements DeckRepositoryInterface
         $this->model = $model;
     }
 
-    public function saveNewDeck(string $name, int $originalLanguageId, int $targetLanguageId, int $userId, bool $isPremium): void
+    public function saveNewDeck(string $name, int $originalLanguageId, int $targetLanguageId, int $userId, bool $isPremium): Deck
     {
         $newDeck = new Deck();
         $newDeck->name = $name;
@@ -25,6 +25,7 @@ class DeckRepository implements DeckRepositoryInterface
         $newDeck->user_id = $userId;
         $newDeck->is_premium = $isPremium;
         $newDeck->save();
+        return $newDeck;
     }
 
     public function isExistDeckById(int $id): bool

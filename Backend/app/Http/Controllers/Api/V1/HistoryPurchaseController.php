@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\HistoryPurchaseRequests\GetHistoryPurchaseRequest;
 use App\Http\Resources\v1\HistoryPurchaseResources\HistoryPurchaseResource;
-use App\Http\Resources\v1\UserTestResultResources\UserTestResultResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\HistoryPurchasesRepository\HistoryPurchaseRepositoryInterface;
 use App\Services\PaginatorService;
 use Dedoc\Scramble\Attributes\QueryParameter;
-use Illuminate\Http\Request;
 
 class HistoryPurchaseController extends Controller
 {

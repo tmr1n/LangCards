@@ -22,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(callback: function () {
     Route::middleware('setApiLocale')->group(callback: function () {
-
         Route::get('test', [TestController::class, 'test']);
-
         Route::prefix('decks')->group(function () {
             Route::get('/', [DeckController::class, 'getDecks'])->name('getDecks');
             Route::get('/{id}', [DeckController::class, 'getDeck'])->where('id', '[0-9]+')->name('getDeck');
@@ -85,6 +83,10 @@ Route::prefix('v1')->group(callback: function () {
                 Route::get('/download/{type}/{tariff_id?}', [PromocodeController::class, 'downloadPromocodes'])
                     ->whereIn('type', ['table', 'card'])->whereNumber('tariff_id')->name('downloadPromocodes');
             });
+            Route::prefix('decks')->group(function () {
+               Route::post('/',[DeckController::class, 'createDeck'])->name('createDeck');
+            });
+
             Route::post('checkSpelling', [SpellingController::class, 'checkSpelling'])->name('checkSpelling');
         });
     });

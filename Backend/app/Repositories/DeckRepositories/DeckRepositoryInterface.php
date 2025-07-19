@@ -14,7 +14,9 @@ interface DeckRepositoryInterface
 
     public function isExistDeckById(int $id): bool;
 
-    public function saveNewDeck(string $name, int $originalLanguageId, int $targetLanguageId, int $userId, bool $isPremium);
+
+
+    public function saveNewDeck(string $name, int $originalLanguageId, int $targetLanguageId, int $userId, bool $isPremium): Deck;
 
     public function deleteDeckById(int $id);
 
