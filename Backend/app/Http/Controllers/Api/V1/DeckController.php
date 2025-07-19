@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Api\V1;
 use App\Enums\TypeInfoAboutDeck;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\FiltersForModels\DeckFilter;
+use App\Http\Requests\Api\V1\DeckRequests\CreateDeckRequest;
 use App\Http\Requests\Api\V1\DeckRequests\DeckFilterRequest;
 use App\Http\Resources\v1\DeckResources\DeckResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\DeckRepositories\DeckRepositoryInterface;
+use App\Repositories\DeckTopicRepositories\DeckTopicRepositoryInterface;
 use App\Repositories\UserRepositories\UserRepositoryInterface;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use App\Services\PaginatorService;
 use Dedoc\Scramble\Attributes\QueryParameter;
+use Exception;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class DeckController extends Controller
 {
@@ -21,11 +27,17 @@ class DeckController extends Controller
 
     protected UserTestResultRepositoryInterface $userTestResultRepository;
 
-    public function __construct(DeckRepositoryInterface $deckRepository, UserTestResultRepositoryInterface $userTestResultRepository, UserRepositoryInterface $userRepository)
+    protected DeckTopicRepositoryInterface $deckTopicRepository;
+
+    public function __construct(DeckRepositoryInterface $deckRepository,
+                                UserTestResultRepositoryInterface $userTestResultRepository,
+                                UserRepositoryInterface $userRepository,
+                                DeckTopicRepositoryInterface $deckTopicRepository)
     {
         $this->deckRepository = $deckRepository;
         $this->userTestResultRepository = $userTestResultRepository;
         $this->userRepository = $userRepository;
+        $this->deckTopicRepository = $deckTopicRepository;
     }
 
     #[QueryParameter('page', 'Номер страницы', type: 'int',default:10, example: 1)]
@@ -74,5 +86,26 @@ class DeckController extends Controller
             return ApiResponse::error(__('api.deck_is_premium_access_denied',['id'=>$id]), null, 403);
         }
         return ApiResponse::success(__('api.deck_found', ['id'=>$id]), (object)['item'=>new DeckResource($deck)]);
+    }
+    public function createDeck(CreateDeckRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $unique_topic_ids = array_unique($request->topic_ids);
+            $newDeck = $this->deckRepository->saveNewDeck($request->name, $request->original_language_id, $request->target_language_id,auth()->id(), $request->is_premium);
+
+            foreach ($unique_topic_ids as $unique_topic_id)
+            {
+                $this->deckTopicRepository->saveNewDeckTopic($newDeck->id, $unique_topic_id);
+            }
+            $newDeck = $this->deckRepository->getDeckById($newDeck->id, TypeInfoAboutDeck::maximum);
+            DB::commit();
+            return ApiResponse::success('Новая колода была успешно создана', (object)['newDeck'=>new DeckResource($newDeck)]);
+        }
+        catch (Exception|Throwable $exception)
+        {
+            DB::rollBack();
+            return ApiResponse::error($exception->getMessage(), null, 500);
+        }
     }
 }
