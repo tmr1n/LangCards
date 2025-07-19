@@ -9,9 +9,12 @@ interface LanguageRepositoryInterface
 
     public function getAllLanguagesName();
 
+    public function getExistentLocale(array $locales);
+
     public function isExistLanguageByLocale(string $languageLocale);
 
     public function isExistLanguageById(int $languageId);
+
 
     public function saveLanguage(string $languageName,string $native_name, string $languageCode,string $locale, string $urlToImage);
 }

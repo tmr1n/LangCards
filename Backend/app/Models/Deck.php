@@ -53,7 +53,7 @@ class Deck extends Model implements ColumnLabelsableInterface
     protected function casts(): array
     {
         return [
-
+            'is_premium'=>'boolean'
         ];
     }
 

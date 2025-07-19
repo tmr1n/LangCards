@@ -51,7 +51,17 @@ use App\Repositories\UserTestResultRepositories\UserTestResultRepository;
 use App\Repositories\UserTestResultRepositories\UserTestResultRepositoryInterface;
 use App\Repositories\VisitedDeckRepositories\VisitedDeckRepository;
 use App\Repositories\VisitedDeckRepositories\VisitedDeckRepositoryInterface;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\Operation;
+use Dedoc\Scramble\Support\Generator\Parameter;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
+use Dedoc\Scramble\Support\Generator\Types\StringType;
+use Dedoc\Scramble\Support\RouteInfo;
+use Dedoc\Scramble\Support\Generator\Schema;
+use Dedoc\Scramble\Support\Type\EnumCaseType;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -75,7 +85,7 @@ class AppServiceProvider extends ServiceProvider
             HistoryPurchaseRepositoryInterface::class => HistoryPurchaseRepository::class,
             TopicRepositoryInterface::class => TopicRepository::class,
             DeckTopicRepositoryInterface::class => DeckTopicRepository::class,
-            VisitedDeckRepositoryInterface::class=> VisitedDeckRepository::class,
+            VisitedDeckRepositoryInterface::class => VisitedDeckRepository::class,
             CardRepositoryInterface::class => CardRepository::class,
             ExampleRepositoryInterface::class => ExampleRepository::class,
             TestRepositoryInterface::class => TestRepository::class,
@@ -96,6 +106,38 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Scramble::configure()
+            ->withDocumentTransformers(function (OpenApi $openApi) {
+                $openApi->secure(
+                    SecurityScheme::http('bearer')
+                );
+            });
+        Scramble::configure()
+            ->withOperationTransformers(function (Operation $operation, RouteInfo $routeInfo) {
+                $routeMiddleware = $routeInfo->route->gatherMiddleware();
+
+                $hasAuthMiddleware = collect($routeMiddleware)->contains(
+                    fn($m) => Str::startsWith($m, 'auth:')
+                );
+
+                if (!$hasAuthMiddleware) {
+                    $operation->security = [];
+                }
+            });
+        Scramble::configure()
+            ->withOperationTransformers(function (Operation $operation){
+                $acceptHeaderParameter = Parameter::make('Accept', 'header')
+                    ->setSchema(
+                        Schema::fromType(new StringType)
+                    )
+                    ->required(true)
+                    ->example("application/json");
+                $acceptLanguageHeaderParameter = Parameter::make('Accept-Language', 'header')
+                    ->description('Предпочитаемый язык для ответа API (поддерживаемые языки: ar, de,en,es,fr,ja,pt,ru,ul,zh). Если язык не установлен, то русский выбирается автоматически')
+                    ->setSchema(Schema::fromType(new StringType))
+                    ->required(false)
+                    ->example("ru");
+                $operation->parameters[] = $acceptLanguageHeaderParameter;
+            });
     }
 }

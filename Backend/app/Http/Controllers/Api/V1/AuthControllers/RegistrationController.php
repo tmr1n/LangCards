@@ -24,7 +24,6 @@ class RegistrationController extends Controller
         $this->userRepository = $userRepository;
         $this->apiService = app(ApiService::class);
     }
-
     public function registration(RegistrationRequest $request): JsonResponse
     {
         $this->registrationRepository->registerUser($request->name, $request->email, $request->password, null,null);

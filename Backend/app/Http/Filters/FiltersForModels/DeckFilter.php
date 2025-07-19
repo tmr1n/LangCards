@@ -9,9 +9,11 @@ class DeckFilter extends QueryFilter
 {
     public function originalLanguages($originalLanguages): void
     {
+        logger($originalLanguages);
         $array_params = array_filter(explode(',', $originalLanguages));
+        logger($array_params);
         $this->builder->whereHas('originalLanguage', function ($query) use ($array_params) {
-            $query->whereIn('name', $array_params);
+            $query->whereIn('locale', $array_params);
         });
     }
 
@@ -19,12 +21,13 @@ class DeckFilter extends QueryFilter
     {
         $array_params = array_filter(explode(',', $targetLanguages));
         $this->builder->whereHas('targetLanguage', function ($query) use ($array_params) {
-            $query->whereIn('name', $array_params);
+            $query->whereIn('locale', $array_params);
         });
     }
 
     public function showPremium($typePremium): void
     {
+        logger($typePremium);
         switch ($typePremium) {
             case TypeShowingDeck::onlyPremium->value:
                 $this->builder->where('is_premium', '=',true);
