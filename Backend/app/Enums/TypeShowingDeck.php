@@ -8,4 +8,9 @@ enum TypeShowingDeck: string
     case onlyNotPremium = 'onlyNotPremium';
     case all = 'all';
 
+    public static function getValues(): array
+    {
+        return ['onlyPremium', 'onlyNotPremium', 'all'];
+    }
+
 }

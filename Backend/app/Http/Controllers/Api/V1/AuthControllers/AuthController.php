@@ -32,7 +32,6 @@ class AuthController extends Controller
         $this->userRepository = $userRepository;
         $this->apiService = app(ApiService::class);
     }
-
     public function login(AuthRequest $request)
     {
         $user = $this->loginRepository->getUserByEmail($request->email);
@@ -56,7 +55,6 @@ class AuthController extends Controller
             ->getTargetUrl();
         return ApiResponse::success(__('api.getting_oauth_url', ['provider'=>$provider]), (object)['url'=>$url]);
     }
-
     public function handleCallback($provider, Request $request)
     {
         try {

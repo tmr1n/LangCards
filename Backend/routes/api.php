@@ -46,7 +46,6 @@ Route::prefix('v1')->group(callback: function () {
             Route::post('logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('timezones', [TimezoneController::class, 'getTimezones'])->name('getTimezones');
 
-            /////
             Route::get('columns/{nameTable}', [ColumnsController::class, 'getColumns'])->name('getColumns');
             Route::get('filtersData/{nameTable}', [FilterDataController::class, 'getFilterData'])->name('getFilterData');
 
@@ -61,7 +60,8 @@ Route::prefix('v1')->group(callback: function () {
                 Route::get('/', [HistoryAttemptsTestController::class, 'getAttemptsTests'])->name('getAttemptsTests');
             });
             Route::prefix('answers')->group(function () {
-                Route::get('/{attemptId}', [AnswerController::class, 'getAnswersInAttempt'])->where('id', '[0-9]+')->name('getAnswersInAttempt');
+                Route::get('/{attemptId}', [AnswerController::class, 'getAnswersInAttempt'])
+                    ->where('id', '[0-9]+')->name('getAnswersInAttempt');
             });
             Route::prefix('historyPurchases')->group(function () {
                 Route::get('/', [HistoryPurchaseController::class, 'getHistoryPurchasesOfAuthUser'])->name('getHistoryPurchasesOfAuthUser');

@@ -25,7 +25,6 @@ class ForgotPasswordController extends Controller
         $this->forgotPasswordRepository = $forgotPasswordRepository;
         $this->userRepository = $userRepository;
     }
-
     public function sendResetLink(SendResetLinkRequest $request): JsonResponse
     {
         if (!$this->userRepository->isExistPasswordAccount($request->email))

@@ -48,4 +48,10 @@ class LanguageRepository implements LanguageRepositoryInterface
     {
         return $this->model->get();
     }
+    public function getExistentLocale(array $locales)
+    {
+        return Language::whereIn('locale', $locales)
+            ->pluck('locale')
+            ->toArray();
+    }
 }
